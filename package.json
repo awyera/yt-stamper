@@ -1,0 +1,26 @@
+{
+  "name": "yt-stamper",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun build:dev:js && bun build:dev:css",
+    "build:dev:js": "bun build --entrypoints ./src/contentScript/index.tsx ./src/background/index.ts --root ./src --outdir ./out --entry-naming '[dir].[ext]' --watch",
+    "build:dev:css": "tailwindcss -i ./src/contentScript/index.css -o ./out/contentScript.css --watch",
+    "build": "bun scripts/build.ts"
+  },
+  "dependencies": {
+    "@webcomponents/custom-elements": "^1.6.0",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.6.4",
+    "@types/bun": "latest",
+    "@types/chrome": "^0.0.265",
+    "@types/react": "^18.2.74",
+    "@types/react-dom": "^18.2.24",
+    "typescript": "^5.4.4"
+  }
+}
