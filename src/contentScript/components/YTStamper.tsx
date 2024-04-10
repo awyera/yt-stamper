@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Play, Timer } from "lucide-react";
+import { Play, Timer, ChevronUp, ChevronDown } from "lucide-react";
 
 export function YTStamper() {
 	const [stamps, setStamps] = useState<number[]>([]);
@@ -22,21 +22,43 @@ export function YTStamper() {
 	}
 
 	return (
-		<div className="p-2 border border-solid border-white text-white">
+		<div className="p-2 border border-solid border-white">
 			<div className="flex gap-3">
-				<input
-					className="text-black text-base"
-					type="text"
-					placeholder="00:00"
-					value={parseDuration(stamps[0])}
-					onChange={() => {}}
-				/>
+				<div className="flex items-center justify-start">
+					<input
+						className="text-black text-base"
+						type="text"
+						placeholder="00:00"
+						value={parseDuration(stamps[0])}
+						onChange={() => {}}
+					/>
+					<div className="flex flex-col">
+						<button
+							className="border border-solid text-base text-white"
+							type="button"
+							onClick={() => {}}
+						>
+							<ChevronUp className="text-base" size="1em" />
+						</button>
+						<button
+							className="border border-solid text-base text-white"
+							type="button"
+							onClick={() => {}}
+						>
+							<ChevronDown className="text-base" size="1em" />
+						</button>
+					</div>
+				</div>
+
 				<textarea className="text-base" placeholder="text" rows={1} />
-				<button className="border border-solid rounded text-base" type="button">
-					<Play />
+				<button
+					className="border border-solid rounded text-base text-white"
+					type="button"
+				>
+					<Play className="text-base" size="1em" />
 				</button>
 				<button
-					className="border border-solid rounded text-base"
+					className="border border-solid rounded text-base text-white"
 					type="button"
 					onClick={onStampClick}
 				>
