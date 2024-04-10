@@ -1,19 +1,11 @@
 import "@webcomponents/custom-elements";
 import { createRoot } from "react-dom/client";
-import { Stamper } from "./components/Stamper";
+import { YTStamper } from "./components/YTStamper";
 
 class YTStamperElement extends HTMLElement {
 	constructor() {
 		super();
 		const shadowRoot = this.attachShadow({ mode: "open" });
-
-		// fetch(chrome.runtime.getURL("contentScript.css"))
-		// 	.then((res) => res.text())
-		// 	.then((css) => {
-		// 		const style = document.createElement("style");
-		// 		style.textContent = css;
-		// 		shadowRoot.appendChild(style);
-		// 	});
 
 		const link = document.createElement("link");
 		link.rel = "stylesheet";
@@ -24,7 +16,7 @@ class YTStamperElement extends HTMLElement {
 	connectedCallback() {
 		if (this.shadowRoot) {
 			const root = createRoot(this.shadowRoot);
-			root.render(<Stamper />);
+			root.render(<YTStamper />);
 		}
 	}
 }
