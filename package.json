@@ -6,7 +6,8 @@
     "dev": "bun build:dev:js && bun build:dev:css",
     "build:dev:js": "bun build --entrypoints ./src/contentScript/index.tsx ./src/background/index.ts --root ./src --outdir ./out --entry-naming '[dir].[ext]' --watch",
     "build:dev:css": "tailwindcss -i ./src/contentScript/index.css -o ./out/contentScript.css --watch",
-    "build": "bun scripts/build.ts"
+    "build": "bun scripts/build.ts",
+    "story": "storybook dev"
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.6.0",
@@ -18,10 +19,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.6.4",
+    "@storybook/addon-essentials": "^8.0.6",
+    "@storybook/react-vite": "^8.0.6",
     "@types/bun": "latest",
     "@types/chrome": "^0.0.265",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
+    "storybook": "^8.0.6",
     "typescript": "^5.4.4"
   }
 }
