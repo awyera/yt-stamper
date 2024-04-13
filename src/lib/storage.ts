@@ -13,7 +13,9 @@ export function loadData(videoId: string): Promise<Timestamp[]> {
       console.log('debug:result', result);
       if (result[videoId]) {
         resolve(result[videoId])
+        return;
       }
+      resolve([]);
     })
   })
 }

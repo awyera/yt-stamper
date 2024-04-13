@@ -3,4 +3,6 @@ chrome.webNavigation.onHistoryStateUpdated.addListener((details) => {
     target: { tabId: details.tabId },
     files: ["contentScript.js"]
   });
+
+  chrome.tabs.sendMessage(details.tabId, { url: details.url })
 }, { url: [{ hostSuffix: 'youtube.com', pathPrefix: '/watch' }] });

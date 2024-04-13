@@ -1,19 +1,20 @@
-import { useEffect, useMemo, useState } from "react";
-import { Header } from "./Header";
-import { Stamp } from "./Stamp";
+import { nanoid } from "nanoid";
+import { useMemo, useState } from "react";
 import { parseTime } from "../lib/time";
 import type { Timestamp } from "../lib/types";
-import { nanoid } from "nanoid";
-import { loadData, saveData } from "../../lib/storage";
-import { getVideoId } from "../lib/video-id";
+import { Header } from "./Header";
+import { Stamp } from "./Stamp";
 
-export function YTStamper() {
-  const [timestamps, setTimestamps] = useState<Timestamp[]>([]);
+interface Props {
+  timestamps: Timestamp[];
+  onChange: (timestamps: Timestamp[]) => void;
+}
 
+export function YTStamper({ timestamps, onChange }: Props) {
   const video = useMemo(() => document.querySelector("video") as HTMLVideoElement, []);
 
   function handleAddStamp() {
-    setTimestamps((timestamps) => [
+    onChange([
       ...timestamps,
       {
         id: nanoid(),
@@ -37,9 +38,7 @@ export function YTStamper() {
   }
 
   function handleTimestampChange(timestamp: Timestamp) {
-    setTimestamps((timestamps) => {
-      return timestamps.map((t) => (t.id === timestamp.id ? timestamp : t));
-    });
+    onChange(timestamps.map((t) => (t.id === timestamp.id ? timestamp : t)));
   }
 
   function handlePlay(timestamp: Timestamp) {
@@ -49,22 +48,8 @@ export function YTStamper() {
   }
 
   function handleDelete(timestamp: Timestamp) {
-    setTimestamps((timestamps) => {
-      return timestamps.filter((t) => t.id !== timestamp.id);
-    });
+    onChange(timestamps.filter((t) => t.id !== timestamp.id));
   }
-
-  useEffect(() => {
-    const videoId = getVideoId();
-    loadData(videoId).then((data) => {
-      setTimestamps(data);
-    });
-  }, []);
-
-  useEffect(() => {
-    const videoId = getVideoId();
-    saveData(videoId, timestamps);
-  }, [timestamps]);
 
   return (
     <div>
