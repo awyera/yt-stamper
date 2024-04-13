@@ -9,7 +9,7 @@ export function Button({ className, circle, disabled, ...props }: Props) {
   return (
     <button
       {...props}
-      className={clsx(className, "flex items-center justify-center text-white", {
+      className={clsx(className, "flex items-center justify-center text-base text-white", {
         "rounded-full": circle,
         rounded: !circle,
         "p-1": circle,

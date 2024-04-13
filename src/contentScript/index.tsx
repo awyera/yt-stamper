@@ -24,15 +24,11 @@ class YTStamperElement extends HTMLElement {
 const observer = new MutationObserver((_mutations, obs) => {
   const container = document.querySelector("#secondary-inner");
   if (container) {
-    console.info("Find container.");
-
     customElements.define("yt-stamper-element", YTStamperElement);
     const ytStamperElement = document.createElement("yt-stamper-element");
 
     container.prepend(ytStamperElement);
     obs.disconnect();
-  } else {
-    console.error("Not find container.");
   }
 });
 
