@@ -37,8 +37,6 @@ export function Stamp({ className, video, timestamp, onTimestampChange, onPlay, 
   }
 
   function handleTimestamp() {
-    console.log("debug:video.currentTime", video.currentTime);
-    console.log("debug:formatTime(video.currentTime)", formatTime(video.currentTime));
     onTimestampChange({
       ...timestamp,
       time: formatTime(video.currentTime),

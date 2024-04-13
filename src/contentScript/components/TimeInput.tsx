@@ -4,11 +4,11 @@ import { formatTime, parseTime } from "../lib/time";
 import type { Timestamp } from "../lib/types";
 
 function isValidFormat(time: string) {
-  return /^(\d{1,2}:)?[0-5]?\d:[0-5]\d$/.test(time);
+  return /^(\d{1,2}:)?(\d{1,2}:)?\d+$/.test(time);
 }
 
 type Props = {
-  time: Timestamp['time'];
+  time: Timestamp["time"];
   onChange: (time: string) => void;
 };
 
@@ -19,11 +19,14 @@ export function TimeInput({ time, onChange }: Props) {
     const value = e.currentTarget.value;
     if (isValidFormat(value)) {
       setError("");
-      onChange(value);
     } else {
       setError("Invalid format");
     }
     onChange(value);
+  }
+
+  function handleBlur() {
+    onChange(formatTime(parseTime(time)));
   }
 
   function handleAdjustTime(sec: number) {
@@ -45,13 +48,15 @@ export function TimeInput({ time, onChange }: Props) {
           value={time}
           onKeyDown={(e) => e.stopPropagation()}
           onChange={handleChange}
-          placeholder="00:00"
+          onBlur={handleBlur}
+          placeholder="00:00:00"
         />
 
         <div className="flex flex-col">
           <button
             className="p-0 px-1 h-2/4 text-white border border-solid border-white hover:bg-gray-600 active:bg-gray-700"
             type="button"
+            tabIndex={-1}
             onClick={() => handleAdjustTime(1)}
           >
             <ChevronUp className="text-xs" size="1em" />
@@ -59,6 +64,7 @@ export function TimeInput({ time, onChange }: Props) {
           <button
             className="p-0 px-1 h-2/4 text-white border border-solid border-white hover:bg-gray-600 active:bg-gray-700"
             type="button"
+            tabIndex={-1}
             onClick={() => handleAdjustTime(-1)}
           >
             <ChevronDown className="text-xs" size="1em" />

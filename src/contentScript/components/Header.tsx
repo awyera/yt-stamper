@@ -8,20 +8,20 @@ type Props = {
 };
 
 export function Header({ onTimeChange, onClipboardCopy, onAddStamp }: Props) {
+  function skipBackwardLong() {
+    onTimeChange(-60);
+  }
+
   function skipBackwardShort() {
-    onTimeChange(-5);
+    onTimeChange(-30);
   }
 
   function skipForwardShort() {
-    onTimeChange(5);
-  }
-
-  function skipBackwardLong() {
-    onTimeChange(-15);
+    onTimeChange(60);
   }
 
   function skipForwardLong() {
-    onTimeChange(30);
+    onTimeChange(3 * 60);
   }
 
   return (
@@ -44,7 +44,7 @@ export function Header({ onTimeChange, onClipboardCopy, onAddStamp }: Props) {
       </div>
 
       <Button circle onClick={onClipboardCopy}>
-        <ClipboardCopy size="1em"  />
+        <ClipboardCopy size="1em" />
       </Button>
 
       <Button circle onClick={onAddStamp}>

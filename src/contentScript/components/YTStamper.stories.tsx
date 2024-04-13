@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof YTStamper>;
 
 export const Primary: Story = {
-  render: () => <YTStamper />,
+  render: () => <YTStamper timestamps={[]} onChange={() => {}} />,
 };
