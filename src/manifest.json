@@ -6,15 +6,20 @@
   "permissions": [
     "activeTab",
     "webNavigation",
-    "scripting"
+    "scripting",
+    "storage"
   ],
   "host_permissions": [
     "*://*.youtube.com/*"
   ],
   "web_accessible_resources": [
     {
-      "resources": ["contentScript.css"],
-      "matches": ["*://*.youtube.com/*"]
+      "resources": [
+        "contentScript.css"
+      ],
+      "matches": [
+        "*://*.youtube.com/*"
+      ]
     }
   ],
   "background": {

@@ -1,9 +1,11 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Header } from "./Header";
 import { Stamp } from "./Stamp";
 import { parseTime } from "../lib/time";
 import type { Timestamp } from "../lib/types";
 import { nanoid } from "nanoid";
+import { loadData, saveData } from "../../lib/storage";
+import { getVideoId } from "../lib/video-id";
 
 export function YTStamper() {
   const [timestamps, setTimestamps] = useState<Timestamp[]>([]);
@@ -51,6 +53,18 @@ export function YTStamper() {
       return timestamps.filter((t) => t.id !== timestamp.id);
     });
   }
+
+  useEffect(() => {
+    const videoId = getVideoId();
+    loadData(videoId).then((data) => {
+      setTimestamps(data);
+    });
+  }, []);
+
+  useEffect(() => {
+    const videoId = getVideoId();
+    saveData(videoId, timestamps);
+  }, [timestamps]);
 
   return (
     <div>
