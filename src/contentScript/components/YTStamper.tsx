@@ -1,101 +1,76 @@
-import { useState, type ChangeEvent } from "react";
-import { Play, Timer, ChevronUp, ChevronDown } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Header } from "./Header";
+import { Stamp } from "./Stamp";
+import { parseTime } from "../lib/time";
+import type { Timestamp } from "../lib/types";
+import { nanoid } from "nanoid";
 
 export function YTStamper() {
-	const [stamps, setStamps] = useState<string[]>([]);
+  const [timestamps, setTimestamps] = useState<Timestamp[]>([]);
 
-	function onStampClick() {
-		const video = document.querySelector("video");
-		const currentTime = video?.currentTime ?? 0;
+  const video = useMemo(() => document.querySelector("video") as HTMLVideoElement, []);
 
-		setStamps([parseDuration(currentTime)]);
-	}
+  function handleAddStamp() {
+    setTimestamps((timestamps) => [
+      ...timestamps,
+      {
+        id: nanoid(),
+        time: "",
+        text: "",
+      },
+    ]);
+  }
 
-	function onDurationChange(e: ChangeEvent<HTMLInputElement>) {
-		const value = e.currentTarget.value;
-		console.log("debug:value", value);
-		setStamps((stamps) => {
-			stamps[0] = value;
-			return stamps;
-		});
-	}
+  function handleTimeChange(seconds: number) {
+    video.currentTime += seconds;
+    video.play();
+  }
 
-	function add() {
-		setStamps([parseDuration(durationToNumber(stamps[0]) + 1)]);
-	}
+  function handleClipboardCopy() {
+    const text = timestamps
+      .filter((t) => t.time)
+      .map((t) => `${t.time} ${t.text}`)
+      .join("\n");
+    navigator.clipboard.writeText(text);
+  }
 
-	function parseDuration(duration: number) {
-		if (duration < 0) return "00:00";
+  function handleTimestampChange(timestamp: Timestamp) {
+    setTimestamps((timestamps) => {
+      return timestamps.map((t) => (t.id === timestamp.id ? timestamp : t));
+    });
+  }
 
-		const hours = Math.floor(duration / 3600);
-		const minutes = Math.floor(duration / 60);
-		const seconds = Math.floor(duration % 60);
-		return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-	}
+  function handlePlay(timestamp: Timestamp) {
+    const seconds = parseTime(timestamp.time);
+    video.currentTime = seconds;
+    video.play();
+  }
 
-	function durationToNumber(duration: string): number {
-		const splitted = duration.split(":");
-		if (splitted.length === 3) {
-			return (
-				Number.parseInt(splitted[0]) * 3600 +
-				Number.parseInt(splitted[1]) * 60 +
-				Number.parseInt(splitted[2])
-			);
-		}
-		if (splitted.length === 2) {
-			return Number.parseInt(splitted[0]) * 60 + Number.parseInt(splitted[1]);
-		}
-		return Number.parseInt(splitted[0]);
-	}
+  function handleDelete(timestamp: Timestamp) {
+    setTimestamps((timestamps) => {
+      return timestamps.filter((t) => t.id !== timestamp.id);
+    });
+  }
 
-	return (
-		<div className="p-2 border border-solid border-white overflow-auto">
-			<div className="flex items-center gap-3">
-				<div className="flex items-center justify-start">
-					<input
-						className="w-12 h-9 text-black text-base "
-						type="text"
-						placeholder="00:00"
-						value={stamps[0]}
-						onChange={onDurationChange}
-					/>
-					<div className="flex flex-col">
-						<button
-							className="px-1 border border-solid text-base text-white"
-							type="button"
-							onClick={add}
-						>
-							<ChevronUp className="text-base" size="1em" />
-						</button>
-						<button
-							className="px-1 border border-solid text-base text-white"
-							type="button"
-							onClick={() => {}}
-						>
-							<ChevronDown className="text-base" size="1em" />
-						</button>
-					</div>
-				</div>
+  return (
+    <div>
+      <Header onTimeChange={handleTimeChange} onClipboardCopy={handleClipboardCopy} onAddStamp={handleAddStamp} />
 
-				<div
-					className="min-h-9 flex-grow text-base  bg-white"
-					contentEditable
-				/>
-
-				<button
-					className="p-2 border border-solid rounded text-base text-white"
-					type="button"
-				>
-					<Play className="text-2xl" size="1em" />
-				</button>
-				<button
-					className="p-2 border border-solid rounded text-base text-white"
-					type="button"
-					onClick={onStampClick}
-				>
-					<Timer className="text-2xl" size="1em" />
-				</button>
-			</div>
-		</div>
-	);
+      {timestamps.length ? (
+        <div className="border border-solid border-gray-500 border-t-0 overflow-auto">
+          {timestamps.map((timestamp, index) => (
+            <Stamp
+              className="first:mt-0 my-2 pt-2 px-2 border-t border-t-gray-500 border-solid"
+              key={timestamp.id}
+              video={video}
+              timestamp={timestamp}
+              onTimestampChange={handleTimestampChange}
+              onPlay={handlePlay}
+              onDelete={handleDelete}
+            />
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
 }
