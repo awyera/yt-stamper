@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import { useEffect, useState } from "react";
 import type { SkipSeconds } from "../../lib/types";
 import { DEFAULT_SKIP_SECONDS } from "../../lib/const";
+import { ButtonGroup } from "./ButtonGroup";
 
 interface Props {
   skip: (time: number) => void;
@@ -38,10 +39,10 @@ export function Header({ skip, onClipboardCopy, onAddTimestamp }: Props) {
   }, []);
 
   return (
-    <header className="sticky top-0 flex items-center gap-4 h-8 px-2 py-1 text-white bg-gray-500">
-      <div className="flex items-center gap-2">
+    <header className="flex items-center gap-4 h-8 px-2 py-1 text-white bg-gray-500">
+      <ButtonGroup>
         <Button onClick={skipBackwardLong}>
-          <ChevronsLeft className="mt-[2px] mr-1" size="1em" />
+          <ChevronsLeft className="mt-[2px]" size="1em" />
           {skipSeconds.longBackward}s
         </Button>
         <Button onClick={skipBackwardShort}>
@@ -54,9 +55,9 @@ export function Header({ skip, onClipboardCopy, onAddTimestamp }: Props) {
         </Button>
         <Button onClick={skipForwardLong}>
           {skipSeconds.longFoward}s
-          <ChevronsRight className="mt-[2px] ml-1" size="1em" />
+          <ChevronsRight className="mt-[2px]" size="1em" />
         </Button>
-      </div>
+      </ButtonGroup>
 
       <Button className="ml-auto" circle onClick={onClipboardCopy}>
         <ClipboardCopy size="1em" />

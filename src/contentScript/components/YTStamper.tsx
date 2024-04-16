@@ -82,10 +82,10 @@ export function YTStamper({ timestamps, onChange }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col border border-solid border-gray-500" style={{ maxHeight: height }}>
+    <div className="flex flex-col border border-solid rounded border-gray-500" style={{ maxHeight: height }}>
       <Header skip={skip} onClipboardCopy={copyToClipboard} onAddTimestamp={addTimestamp} />
 
-      <div className="grow overflow-y-auto">
+      <div className="grow overflow-y-scroll">
         {timestamps.length ? (
           <div className="overflow-auto">
             {timestamps.map((timestamp) => (
