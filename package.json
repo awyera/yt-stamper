@@ -4,10 +4,11 @@
   "type": "module",
   "scripts": {
     "dev": "bun build:dev:js && bun build:dev:css",
-    "build:dev:js": "bun run cp:manifest && bun build --entrypoints ./src/contentScript/index.tsx ./src/background/index.ts --root ./src --outdir ./out --entry-naming '[dir].[ext]' --watch",
-    "build:dev:css": "tailwindcss -i ./src/contentScript/index.css -o ./out/contentScript.css --watch",
+    "build:dev:js": "bun run cp:manifest && bun run cp:options && bun build --entrypoints ./src/contentScript/index.tsx ./src/background/index.ts ./src/options/index.tsx --root ./src --outdir ./out --entry-naming '[dir].[ext]' --watch",
+    "build:dev:css": "tailwindcss -i ./src/index.css -o ./out/index.css --watch",
     "build": "bun scripts/build.ts",
     "cp:manifest": "cp ./src/manifest.json ./out/manifest.json",
+    "cp:options": "cp ./src/options/index.html ./out/options.html",
     "clean": "rm -rf ./out",
     "storybook": "storybook dev"
   },
@@ -29,6 +30,7 @@
     "@types/chrome": "^0.0.265",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",
+    "prettier": "^3.2.5",
     "storybook": "^8.0.6",
     "typescript": "^5.4.4"
   }

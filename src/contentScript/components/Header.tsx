@@ -1,53 +1,68 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ClipboardCopy, Plus } from "lucide-react";
 import { Button } from "./Button";
+import { useEffect, useState } from "react";
+import type { SkipSeconds } from "../../lib/types";
+import { DEFAULT_SKIP_SECONDS } from "../../lib/const";
 
-type Props = {
-  onTimeChange: (time: number) => void;
+interface Props {
+  skip: (time: number) => void;
   onClipboardCopy: () => void;
-  onAddStamp: () => void;
-};
+  onAddTimestamp: () => void;
+}
 
-export function Header({ onTimeChange, onClipboardCopy, onAddStamp }: Props) {
+export function Header({ skip, onClipboardCopy, onAddTimestamp }: Props) {
+  const [skipSeconds, setSkipSeconds] = useState<SkipSeconds>(DEFAULT_SKIP_SECONDS);
+
   function skipBackwardLong() {
-    onTimeChange(-60);
+    skip(skipSeconds.longBackward * -1);
   }
 
   function skipBackwardShort() {
-    onTimeChange(-30);
+    skip(skipSeconds.shortBackward * -1);
   }
 
   function skipForwardShort() {
-    onTimeChange(60);
+    skip(skipSeconds.shortFoward);
   }
 
   function skipForwardLong() {
-    onTimeChange(3 * 60);
+    skip(skipSeconds.longFoward);
   }
 
-  return (
-    <header className="flex items-center gap-8 px-2 py-1 text-white bg-gray-500">
-      <h1 className="text-base">YTStamper</h1>
+  useEffect(() => {
+    chrome.storage?.local.get("skipSeconds", (result) => {
+      if (result.skipSeconds) {
+        setSkipSeconds(result.skipSeconds);
+      }
+    });
+  }, []);
 
-      <div className="flex items-center gap-2 ml-auto">
-        <Button circle onClick={skipBackwardLong}>
-          <ChevronsLeft size="1em" />
+  return (
+    <header className="sticky top-0 flex items-center gap-4 h-8 px-2 py-1 text-white bg-gray-500">
+      <div className="flex items-center gap-2">
+        <Button onClick={skipBackwardLong}>
+          <ChevronsLeft className="mt-[2px] mr-1" size="1em" />
+          {skipSeconds.longBackward}s
         </Button>
-        <Button circle onClick={skipBackwardShort}>
-          <ChevronLeft size="1em" />
+        <Button onClick={skipBackwardShort}>
+          <ChevronLeft className="mt-[2px]" size="1em" />
+          {skipSeconds.shortBackward}s
         </Button>
-        <Button circle onClick={skipForwardShort}>
-          <ChevronRight size="1em" />
+        <Button onClick={skipForwardShort}>
+          {skipSeconds.shortFoward}s
+          <ChevronRight className="mt-[2px]" size="1em" />
         </Button>
-        <Button circle onClick={skipForwardLong}>
-          <ChevronsRight size="1em" />
+        <Button onClick={skipForwardLong}>
+          {skipSeconds.longFoward}s
+          <ChevronsRight className="mt-[2px] ml-1" size="1em" />
         </Button>
       </div>
 
-      <Button circle onClick={onClipboardCopy}>
+      <Button className="ml-auto" circle onClick={onClipboardCopy}>
         <ClipboardCopy size="1em" />
       </Button>
 
-      <Button circle onClick={onAddStamp}>
+      <Button circle onClick={onAddTimestamp}>
         <Plus size="1em" />
       </Button>
     </header>

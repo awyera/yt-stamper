@@ -2,45 +2,36 @@ import { Play, Timer, Trash } from "lucide-react";
 import { Button } from "./Button";
 import { TimeInput } from "./TimeInput";
 import type { ChangeEvent, KeyboardEvent } from "react";
-import type { Timestamp } from "../lib/types";
-import { formatTime } from "../lib/time";
+import type { Timestamp } from "../../lib/types";
+import { formatTime, parseTime } from "../lib/time";
 import clsx from "clsx";
 import { ButtonGroup } from "./ButtonGroup";
 
-type Props = {
+interface Props {
   className?: string;
   video: HTMLVideoElement;
   timestamp: Timestamp;
-  onPlay: (timestamp: Timestamp) => void;
-  onTimestampChange: (timestamp: Timestamp) => void;
+  seek: (seconds: number) => void;
+  onChange: (timestamp: Timestamp) => void;
   onDelete: (timestamp: Timestamp) => void;
-};
+}
 
-export function Stamp({ className, video, timestamp, onTimestampChange, onPlay, onDelete }: Props) {
+export function Stamp({ className, video, timestamp, seek, onChange, onDelete }: Props) {
   function handleTimeChange(time: string) {
-    onTimestampChange({
-      ...timestamp,
-      time,
-    });
+    onChange({ ...timestamp, time });
   }
 
   function handleTextChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.currentTarget.value;
-    onTimestampChange({
-      ...timestamp,
-      text: value,
-    });
+    onChange({ ...timestamp, text: value });
   }
 
   function handlePlay() {
-    onPlay(timestamp);
+    seek(parseTime(timestamp.time));
   }
 
   function handleTimestamp() {
-    onTimestampChange({
-      ...timestamp,
-      time: formatTime(video.currentTime),
-    });
+    onChange({ ...timestamp, time: formatTime(video.currentTime) });
   }
 
   function handleDelete() {
@@ -52,7 +43,7 @@ export function Stamp({ className, video, timestamp, onTimestampChange, onPlay, 
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
       <input
-        className="grow text-base w-20 px-1 py-1 leading-none"
+        className="grow text-base w-20 px-1 py-1 leading-normal"
         type="text"
         value={timestamp.text}
         onChange={handleTextChange}

@@ -1,16 +1,16 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState, type ChangeEvent } from "react";
 import { formatTime, parseTime } from "../lib/time";
-import type { Timestamp } from "../lib/types";
+import type { Timestamp } from "../../lib/types";
 
 function isValidFormat(time: string) {
   return /^(\d{1,2}:)?(\d{1,2}:)?\d+$/.test(time);
 }
 
-type Props = {
+interface Props {
   time: Timestamp["time"];
   onChange: (time: string) => void;
-};
+}
 
 export function TimeInput({ time, onChange }: Props) {
   const [error, setError] = useState("");
@@ -43,7 +43,7 @@ export function TimeInput({ time, onChange }: Props) {
     <div>
       <div className="flex items-stretch justify-start">
         <input
-          className="text-base w-20 px-1 py-1 leading-none"
+          className="text-base w-20 px-1 py-1 leading-normal"
           type="text"
           value={time}
           onKeyDown={(e) => e.stopPropagation()}

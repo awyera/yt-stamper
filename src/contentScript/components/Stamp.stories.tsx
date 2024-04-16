@@ -20,10 +20,10 @@ export const Primary: Story = {
       <Stamp
         video={document.createElement("video")}
         timestamp={timestamp}
-        onTimestampChange={(timestamp) => {
+        onChange={(timestamp) => {
           setTimestamp(timestamp);
         }}
-        onPlay={() => {}}
+        seek={() => {}}
         onDelete={() => {}}
       />
     );
@@ -38,10 +38,10 @@ export const Empty: Story = {
       <Stamp
         video={document.createElement("video")}
         timestamp={timestamp}
-        onTimestampChange={(timestamp) => {
+        onChange={(timestamp) => {
           setTimestamp(timestamp);
         }}
-        onPlay={() => {}}
+        seek={() => {}}
         onDelete={() => {}}
       />
     );

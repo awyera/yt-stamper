@@ -2,6 +2,8 @@ import "@webcomponents/custom-elements";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
 
+const ELEMENT_NAME = "yt-stamper";
+
 class YTStamperElement extends HTMLElement {
   constructor() {
     super();
@@ -9,7 +11,7 @@ class YTStamperElement extends HTMLElement {
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = chrome.runtime.getURL("contentScript.css");
+    link.href = chrome.runtime.getURL("index.css");
     shadowRoot.append(link);
   }
 
@@ -24,8 +26,10 @@ class YTStamperElement extends HTMLElement {
 const observer = new MutationObserver((_mutations, obs) => {
   const container = document.querySelector("#secondary-inner");
   if (container) {
-    customElements.define("yt-stamper-element", YTStamperElement);
-    const ytStamperElement = document.createElement("yt-stamper-element");
+    if (!customElements.get(ELEMENT_NAME)) {
+      customElements.define(ELEMENT_NAME, YTStamperElement);
+    }
+    const ytStamperElement = document.createElement(ELEMENT_NAME);
 
     container.prepend(ytStamperElement);
     obs.disconnect();

@@ -1,4 +1,4 @@
-import '../out/contentScript.css';
+import '../out/index.css';
 import type { Preview } from '@storybook/addon-essentials'
 
 const preview: Preview = {

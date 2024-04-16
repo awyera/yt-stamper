@@ -1,15 +1,15 @@
 import clsx from "clsx";
 import type { ComponentProps } from "react";
 
-type Props = {
+interface Props extends ComponentProps<"button"> {
   circle?: boolean;
-} & ComponentProps<"button">;
+}
 
 export function Button({ className, circle, disabled, ...props }: Props) {
   return (
     <button
       {...props}
-      className={clsx(className, "flex items-center justify-center text-base text-white", {
+      className={clsx(className, "flex items-center justify-center text-base text-white leading-none", {
         "rounded-full": circle,
         rounded: !circle,
         "p-1": circle,

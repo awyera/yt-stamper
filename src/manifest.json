@@ -15,7 +15,7 @@
   "web_accessible_resources": [
     {
       "resources": [
-        "contentScript.css"
+        "index.css"
       ],
       "matches": [
         "*://*.youtube.com/*"
@@ -25,6 +25,7 @@
   "background": {
     "service_worker": "background.js"
   },
+  "options_page": "options.html",
   "content_scripts": [
     {
       "matches": [
