@@ -51,15 +51,15 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
       />
 
       <ButtonGroup className="self-center">
-        <Button className="text-base" tabIndex={-1} disabled={!timestamp.time} onClick={handlePlay}>
+        <Button className="text-base" title="再生" tabIndex={-1} disabled={!timestamp.time} onClick={handlePlay}>
           <Play size="1em" />
         </Button>
 
-        <Button className="text-base" tabIndex={-1} onClick={handleTimestamp}>
+        <Button className="text-base" title="現在の再生時間を記録" tabIndex={-1} onClick={handleTimestamp}>
           <Timer size="1em" />
         </Button>
 
-        <Button className="text-base" tabIndex={-1} onClick={handleDelete}>
+        <Button className="text-base" title="削除" tabIndex={-1} onClick={handleDelete}>
           <Trash size="1em" />
         </Button>
       </ButtonGroup>
