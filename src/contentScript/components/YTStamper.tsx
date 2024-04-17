@@ -49,6 +49,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
    * timestamp を追加
    */
   function addTimestamp() {
+    setIsOpen(true);
     onChange([...timestamps, { id: nanoid(), time: "", text: "" }]);
   }
 
