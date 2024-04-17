@@ -2,11 +2,11 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  ChevronUpCircle,
+  ChevronUp,
   ChevronsLeft,
   ChevronsRight,
   ClipboardCopy,
-  Plus,
+  Plus
 } from "lucide-react";
 import { useEffect, useState, type MouseEvent } from "react";
 import { DEFAULT_SKIP_SECONDS } from "../../lib/const";
@@ -70,7 +70,7 @@ export function Header({ isOpen, skip, onClipboardCopy, onAddTimestamp, onClick 
       onClick={onClick}
       onKeyDown={onClick}
     >
-      <div className="text-base">{isOpen ? <ChevronUpCircle size="1em" /> : <ChevronDown size="1em" />}</div>
+      <div className="text-base">{isOpen ? <ChevronUp size="1em" /> : <ChevronDown size="1em" />}</div>
 
       <ButtonGroup>
         <Button title={`${skipSeconds.longBackward}秒戻る`} onClick={skipBackwardLong}>
