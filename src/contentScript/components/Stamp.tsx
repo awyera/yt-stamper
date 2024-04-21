@@ -1,11 +1,11 @@
 import { Play, Timer, Trash } from "lucide-react";
-import { Button } from "./Button";
-import { TimeInput } from "./TimeInput";
 import type { ChangeEvent, KeyboardEvent } from "react";
+import { twMerge } from "tailwind-merge";
 import type { Timestamp } from "../../lib/types";
 import { formatTime, parseTime } from "../lib/time";
-import clsx from "clsx";
+import { Button } from "./Button";
 import { ButtonGroup } from "./ButtonGroup";
+import { TimeInput } from "./TimeInput";
 
 interface Props {
   className?: string;
@@ -39,11 +39,11 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
   }
 
   return (
-    <div className={clsx(className, "flex items-start gap-4")}>
+    <div className={twMerge("flex items-start gap-4", className)}>
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
       <input
-        className="grow text-base w-20 px-1 py-1 leading-normal"
+        className="w-20 grow px-1 py-1 text-base leading-normal"
         type="text"
         value={timestamp.text}
         onChange={handleTextChange}
@@ -59,7 +59,7 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
           <Timer size="1em" />
         </Button>
 
-        <Button className="text-base" title="削除" tabIndex={-1} onClick={handleDelete}>
+        <Button className="text-base" variant="danger" title="削除" tabIndex={-1} onClick={handleDelete}>
           <Trash size="1em" />
         </Button>
       </ButtonGroup>

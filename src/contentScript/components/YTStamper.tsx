@@ -88,15 +88,21 @@ export function YTStamper({ timestamps, onChange }: Props) {
   }, []);
 
   return (
-    <div className="flex flex-col border border-solid rounded border-gray-500" style={{ maxHeight: height }}>
-      <Header isOpen={isOpen} skip={skip} onClipboardCopy={copyToClipboard} onAddTimestamp={addTimestamp} onClick={toggleOpen} />
+    <div className="flex flex-col rounded border border-gray-500 border-solid" style={{ maxHeight: height }}>
+      <Header
+        isOpen={isOpen}
+        skip={skip}
+        onClipboardCopy={copyToClipboard}
+        onAddTimestamp={addTimestamp}
+        onClick={toggleOpen}
+      />
 
       <div className="grow overflow-y-scroll" style={{ height: isOpen ? "auto" : 0 }}>
         {timestamps.length ? (
           <div className="overflow-auto">
             {timestamps.map((timestamp) => (
               <Stamp
-                className="first:mt-0 my-2 pt-2 px-2 border-t first:border-t-0 border-t-gray-500 border-solid"
+                className="my-2 border-t border-t-gray-500 border-solid px-2 pt-2 first:mt-0 first:border-t-0"
                 key={timestamp.id}
                 video={video}
                 timestamp={timestamp}

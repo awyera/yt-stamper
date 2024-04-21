@@ -1,5 +1,5 @@
-import clsx from "clsx";
-import { type ChangeEvent, useId } from "react";
+import { useId, type ChangeEvent } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   className?: string;
@@ -18,13 +18,13 @@ export function Form({ className, inputClassName, label, name, value, onChange }
   }
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <label htmlFor={id} className="text-base font-bold">
+    <div className={twMerge("flex flex-col gap-1", className)}>
+      <label htmlFor={id} className="font-bold text-base">
         {label}
       </label>
       <input
         id={id}
-        className={clsx("w-20 px-1 py-1 text-base leading-normal border border-gray-500", inputClassName)}
+        className={twMerge("w-20 border border-gray-500 px-1 py-1 text-base leading-normal", inputClassName)}
         type="number"
         min="0"
         value={value}

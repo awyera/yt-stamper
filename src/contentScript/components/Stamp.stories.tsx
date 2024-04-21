@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Stamp } from "./Stamp";
 import { useState } from "react";
-import type { Timestamp } from "../lib/types";
+import type { Timestamp } from "../../lib/types";
 import { nanoid } from "nanoid";
 
 const meta: Meta<typeof Stamp> = {

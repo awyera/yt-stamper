@@ -12,7 +12,7 @@
     "build:dev:css": "tailwindcss -i ./src/index.css -o ./out/index.css --watch",
     "copy": "bun --watch scripts/copy.ts",
     "clean": "rm -rf ./out",
-    "storybook": "storybook dev"
+    "storybook": "storybook dev -p 9009 --no-open"
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.6.0",
@@ -20,10 +20,12 @@
     "lucide-react": "^0.372.0",
     "nanoid": "^5.0.7",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.7.0",
+    "@storybook/addon-a11y": "^8.0.8",
     "@storybook/addon-essentials": "^8.0.8",
     "@storybook/react-vite": "^8.0.8",
     "@types/bun": "^1.1.0",

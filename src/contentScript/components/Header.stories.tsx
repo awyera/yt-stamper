@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof Header>;
 
 export const Primary: Story = {
-  render: () => <Header skip={() => {}} onClipboardCopy={() => {}} onAddTimestamp={() => {}} />,
+  render: () => <Header isOpen onClick={() => {}} skip={() => {}} onClipboardCopy={() => {}} onAddTimestamp={() => {}} />,
 };

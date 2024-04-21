@@ -7,6 +7,13 @@ import { YTStamper } from "./YTStamper";
 
 const meta: Meta<typeof YTStamper> = {
   component: YTStamper,
+  decorators: [
+    (Story) => (
+      <div style={{ width: "400.69px" }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;

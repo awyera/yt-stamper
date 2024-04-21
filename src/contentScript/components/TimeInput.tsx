@@ -43,7 +43,7 @@ export function TimeInput({ time, onChange }: Props) {
     <div>
       <div className="flex items-stretch justify-start">
         <input
-          className="text-base w-20 px-1 py-1 leading-normal"
+          className="w-20 px-1 py-1 text-base leading-normal"
           type="text"
           value={time}
           onKeyDown={(e) => e.stopPropagation()}
@@ -54,7 +54,7 @@ export function TimeInput({ time, onChange }: Props) {
 
         <div className="flex flex-col">
           <button
-            className="p-0 px-1 h-2/4 text-white border border-solid border-white hover:bg-gray-600 active:bg-gray-700"
+            className="h-2/4 border border-white border-solid p-0 px-1 text-white active:bg-gray-700 hover:bg-gray-600"
             type="button"
             tabIndex={-1}
             onClick={() => handleAdjustTime(1)}
@@ -62,7 +62,7 @@ export function TimeInput({ time, onChange }: Props) {
             <ChevronUp className="text-xs" size="1em" />
           </button>
           <button
-            className="p-0 px-1 h-2/4 text-white border border-solid border-white hover:bg-gray-600 active:bg-gray-700"
+            className="h-2/4 border border-white border-solid p-0 px-1 text-white active:bg-gray-700 hover:bg-gray-600"
             type="button"
             tabIndex={-1}
             onClick={() => handleAdjustTime(-1)}

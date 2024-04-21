@@ -64,7 +64,7 @@ export function Header({ isOpen, skip, onClipboardCopy, onAddTimestamp, onClick 
   }, []);
 
   return (
-    <header className="flex items-center gap-4 h-8 px-2 py-1 text-white bg-gray-500">
+    <header className="flex h-8 items-center gap-4 bg-gray-500 px-2 py-1 text-white">
       <Button circle onClick={onClick}>
         {isOpen ? <ChevronUp size="1em" /> : <ChevronDown size="1em" />}
       </Button>

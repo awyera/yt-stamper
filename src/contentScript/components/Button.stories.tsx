@@ -26,3 +26,7 @@ export const Icon: Story = {
 export const Disabled: Story = {
   render: () => <Button disabled>disabled</Button>,
 };
+
+export const Danger: Story = {
+  render: () => <Button variant="danger">Danger</Button>,
+};

@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ButtonGroup } from "./ButtonGroup";
-import { Plus } from "lucide-react";
 import { Button } from "./Button";
+import { ButtonGroup } from "./ButtonGroup";
 
 const meta: Meta<typeof ButtonGroup> = {
   component: ButtonGroup,
