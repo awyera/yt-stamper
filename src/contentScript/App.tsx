@@ -9,18 +9,13 @@ export function App() {
 
   const [timestamps, setTimestamps] = useState<Timestamp[]>([]);
 
-  /**
-   * timestamps が変更されたときに拡張機能ストレージに保存する
-   * @param timestamps
-   */
+  // timestamps が変更されたときに拡張機能ストレージに保存する
   function handleChange(timestamps: Timestamp[]) {
     setTimestamps(timestamps);
     saveData(videoId, timestamps);
   }
 
-  /**
-   * 動画が変更されたとき拡張機能ストレージから timestamps を読み込む
-   */
+  // 動画が変更されたとき拡張機能ストレージから timestamps を読み込む
   useEffect(() => {
     loadData(videoId).then((data) => {
       setTimestamps(data);

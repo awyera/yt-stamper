@@ -18,25 +18,19 @@ export function YTStamper({ timestamps, onChange }: Props) {
 
   const listRef = useRef<HTMLDivElement>(null);
 
-  /**
-   * 指定秒分再生時間をスキップ
-   */
+  // 指定秒分再生時間をスキップ
   function skip(seconds: number) {
     video.currentTime += seconds;
     video.play();
   }
 
-  /**
-   * 再生時間を指定秒に変更
-   */
+  // 再生時間を指定秒に変更
   function seek(seconds: number) {
     video.currentTime = seconds;
     video.play();
   }
 
-  /**
-   * クリップボードにコピー
-   */
+  // クリップボードにコピー
   function copyToClipboard() {
     const text = timestamps
       .filter((t) => t.time)
@@ -49,32 +43,24 @@ export function YTStamper({ timestamps, onChange }: Props) {
     setIsOpen((isOpen) => !isOpen);
   }
 
-  /**
-   * timestamp を追加
-   */
+  // timestamp を追加
   function addTimestamp() {
     setIsOpen(true);
     onChange([...timestamps, { id: nanoid(), time: "", text: "" }]);
     setShouldScrollToButton(true);
   }
 
-  /**
-   * timestamp を変更
-   */
+  // timestamp を変更
   function changeTimestamp(timestamp: Timestamp) {
     onChange(timestamps.map((t) => (t.id === timestamp.id ? timestamp : t)));
   }
 
-  /**
-   * timestamp を削除
-   */
+  // timestamp を削除
   function removeTimestamp(timestamp: Timestamp) {
     onChange(timestamps.filter((t) => t.id !== timestamp.id));
   }
 
-  /**
-   * video の高さを更新
-   */
+  // video の高さを更新
   useEffect(() => {
     const videoElm = document.querySelector("video");
     if (!videoElm) return;
@@ -98,7 +84,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
       listRef.current.scrollTo({ top: listRef.current.scrollHeight });
       setShouldScrollToButton(false);
     }
-  }, [shouldScrollToButton])
+  }, [shouldScrollToButton]);
 
   return (
     <div className="flex flex-col rounded border border-gray-500 border-solid" style={{ maxHeight: height }}>

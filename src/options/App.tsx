@@ -30,7 +30,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="w-96 my-8 mx-auto py-2 px-4 border border-solid border-gray-500">
+    <div className="mx-auto my-8 w-96 border border-gray-500 border-solid px-4 py-2">
       <Form label="Long Backward (sec)" name="longBackward" value={skipSeconds.longBackward} onChange={handleChange} />
       <Form
         label="Short Backward (sec)"
@@ -41,10 +41,10 @@ export function App() {
       <Form label="Short Foward (sec)" name="shortFoward" value={skipSeconds.shortFoward} onChange={handleChange} />
       <Form label="Long Foward (sec)" name="longFoward" value={skipSeconds.longFoward} onChange={handleChange} />
 
-      <div className="flex items-center justify-end gap-2 mt-4">
-        {message ? <p className="text-sm text-green-600 font-bold">{message}</p> : null}
+      <div className="mt-4 flex items-center justify-end gap-2">
+        {message ? <p className="font-bold text-green-600 text-sm">{message}</p> : null}
         <button
-          className=" py-1 px-2 rounded text-white font-bold bg-green-500 hover:bg-green-600 active:bg-green-700"
+          className="rounded bg-green-500 px-2 py-1 font-bold text-white active:bg-green-700 hover:bg-green-600"
           type="button"
           onClick={handleSave}
         >
