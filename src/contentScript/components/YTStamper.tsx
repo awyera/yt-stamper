@@ -1,5 +1,5 @@
 import { nanoid } from "nanoid";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { Timestamp } from "../../lib/types";
 import { Header } from "./Header";
 import { Stamp } from "./Stamp";
@@ -12,7 +12,11 @@ interface Props {
 export function YTStamper({ timestamps, onChange }: Props) {
   const [isOpen, setIsOpen] = useState(true);
   const [height, setHeight] = useState("");
+  const [shouldScrollToButton, setShouldScrollToButton] = useState(false);
+
   const video = useMemo(() => document.querySelector("video") as HTMLVideoElement, []);
+
+  const listRef = useRef<HTMLDivElement>(null);
 
   /**
    * 指定秒分再生時間をスキップ
@@ -51,6 +55,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
   function addTimestamp() {
     setIsOpen(true);
     onChange([...timestamps, { id: nanoid(), time: "", text: "" }]);
+    setShouldScrollToButton(true);
   }
 
   /**
@@ -87,6 +92,14 @@ export function YTStamper({ timestamps, onChange }: Props) {
     };
   }, []);
 
+  // タイムスタンプが追加された際に最下部へスクロールする
+  useEffect(() => {
+    if (shouldScrollToButton && listRef.current) {
+      listRef.current.scrollTo({ top: listRef.current.scrollHeight });
+      setShouldScrollToButton(false);
+    }
+  }, [shouldScrollToButton])
+
   return (
     <div className="flex flex-col rounded border border-gray-500 border-solid" style={{ maxHeight: height }}>
       <Header
@@ -97,10 +110,9 @@ export function YTStamper({ timestamps, onChange }: Props) {
         onClick={toggleOpen}
       />
 
-      <div className="grow overflow-y-scroll" style={{ height: isOpen ? "auto" : 0 }}>
-        {timestamps.length ? (
-          <div className="overflow-auto">
-            {timestamps.map((timestamp) => (
+      <div className="grow overflow-y-scroll" style={{ height: isOpen ? "auto" : 0 }} ref={listRef}>
+        {timestamps.length
+          ? timestamps.map((timestamp) => (
               <Stamp
                 className="my-2 border-t border-t-gray-500 border-solid px-2 pt-2 first:mt-0 first:border-t-0"
                 key={timestamp.id}
@@ -110,9 +122,8 @@ export function YTStamper({ timestamps, onChange }: Props) {
                 seek={seek}
                 onDelete={removeTimestamp}
               />
-            ))}
-          </div>
-        ) : null}
+            ))
+          : null}
       </div>
     </div>
   );

@@ -9,7 +9,8 @@ const meta: Meta<typeof YTStamper> = {
   component: YTStamper,
   decorators: [
     (Story) => (
-      <div style={{ width: "400.69px" }}>
+      <div style={{ width: 400.67 }}>
+        <video height="720px" muted  />
         <Story />
       </div>
     ),
