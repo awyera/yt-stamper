@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Timestamp } from "../../lib/types";
 import { Header } from "./Header";
 import { Stamp } from "./Stamp";
+import { parseTime } from "../lib/time";
 
 interface Props {
   timestamps: Timestamp[];
@@ -28,6 +29,18 @@ export function YTStamper({ timestamps, onChange }: Props) {
   function seek(seconds: number) {
     video.currentTime = seconds;
     video.play();
+  }
+
+  // 時間昇順にソート
+  function sort() {
+    const sorted = [...timestamps].sort((a, b) => {
+      if (a.time === "") {
+        // 未入力は末尾
+        return 1;
+      }
+      return parseTime(a.time) - parseTime(b.time);
+    });
+    onChange(sorted);
   }
 
   // クリップボードにコピー
@@ -91,6 +104,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
       <Header
         isOpen={isOpen}
         skip={skip}
+        onSort={sort}
         onClipboardCopy={copyToClipboard}
         onAddTimestamp={addTimestamp}
         onClick={toggleOpen}
@@ -100,7 +114,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
         {timestamps.length
           ? timestamps.map((timestamp) => (
               <Stamp
-                className="my-2 border-t border-t-gray-500 border-solid px-2 pt-2 first:mt-0 first:border-t-0"
+                className="my-2 border-t border-t-gray-500 border-solid px-1 pt-2 first:mt-0 first:border-t-0"
                 key={timestamp.id}
                 video={video}
                 timestamp={timestamp}

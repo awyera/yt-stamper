@@ -1,4 +1,5 @@
 import {
+  ArrowDown01,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -8,7 +9,7 @@ import {
   ClipboardCopy,
   Plus,
 } from "lucide-react";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useState } from "react";
 import { DEFAULT_SKIP_SECONDS } from "../../lib/const";
 import type { SkipSeconds } from "../../lib/types";
 import { Button } from "./Button";
@@ -17,42 +18,29 @@ import { ButtonGroup } from "./ButtonGroup";
 interface Props {
   isOpen: boolean;
   skip: (time: number) => void;
+  onSort: () => void;
   onClipboardCopy: () => void;
   onAddTimestamp: () => void;
   onClick: () => void;
 }
 
-export function Header({ isOpen, skip, onClipboardCopy, onAddTimestamp, onClick }: Props) {
+export function Header({ isOpen, skip, onSort, onClipboardCopy, onAddTimestamp, onClick }: Props) {
   const [skipSeconds, setSkipSeconds] = useState<SkipSeconds>(DEFAULT_SKIP_SECONDS);
 
-  function skipBackwardLong(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
+  function skipBackwardLong() {
     skip(skipSeconds.longBackward * -1);
   }
 
-  function skipBackwardShort(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
+  function skipBackwardShort() {
     skip(skipSeconds.shortBackward * -1);
   }
 
-  function skipForwardShort(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
+  function skipForwardShort() {
     skip(skipSeconds.shortFoward);
   }
 
-  function skipForwardLong(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
+  function skipForwardLong() {
     skip(skipSeconds.longFoward);
-  }
-
-  function handleCopy(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
-    onClipboardCopy();
-  }
-
-  function handleAdd(e: MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
-    onAddTimestamp();
   }
 
   useEffect(() => {
@@ -64,7 +52,7 @@ export function Header({ isOpen, skip, onClipboardCopy, onAddTimestamp, onClick 
   }, []);
 
   return (
-    <header className="flex h-8 items-center gap-4 bg-gray-500 px-2 py-1 text-white">
+    <header className="flex h-8 items-center gap-2 bg-gray-500 px-2 py-1 text-white">
       <Button circle onClick={onClick}>
         {isOpen ? <ChevronUp size="1em" /> : <ChevronDown size="1em" />}
       </Button>
@@ -88,11 +76,15 @@ export function Header({ isOpen, skip, onClipboardCopy, onAddTimestamp, onClick 
         </Button>
       </ButtonGroup>
 
-      <Button className="ml-auto" title="クリップボードにコピー" circle onClick={handleCopy}>
+      <Button className="ml-auto" title="時間順にソート" circle onClick={onSort}>
+        <ArrowDown01 size="1em" />
+      </Button>
+
+      <Button title="クリップボードにコピー" circle onClick={onClipboardCopy}>
         <ClipboardCopy size="1em" />
       </Button>
 
-      <Button circle title="スタンプを追加" onClick={handleAdd}>
+      <Button circle title="スタンプを追加" onClick={onAddTimestamp}>
         <Plus size="1em" />
       </Button>
     </header>

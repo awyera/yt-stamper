@@ -39,11 +39,11 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
   }
 
   return (
-    <div className={twMerge("flex items-start gap-4", className)}>
+    <div className={twMerge("flex items-start gap-1", className)}>
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
       <input
-        className="w-20 grow px-1 py-1 text-base leading-normal"
+        className="w-20 grow border border-gray-500 px-1 py-1 text-base leading-normal"
         type="text"
         value={timestamp.text}
         onChange={handleTextChange}

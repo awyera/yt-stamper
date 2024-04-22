@@ -27,6 +27,7 @@
     "@biomejs/biome": "^1.7.0",
     "@storybook/addon-a11y": "^8.0.8",
     "@storybook/addon-essentials": "^8.0.8",
+    "@storybook/react": "^8.0.8",
     "@storybook/react-vite": "^8.0.8",
     "@types/bun": "^1.1.0",
     "@types/chrome": "^0.0.266",

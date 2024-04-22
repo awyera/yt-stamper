@@ -1,22 +1,21 @@
-import '../out/index.css';
-import type { Preview } from '@storybook/addon-essentials'
+import "../out/index.css";
 
-const preview: Preview = {
+import type { Preview } from "@storybook/react";
+
+export default {
   parameters: {
     backgrounds: {
-      default: 'dark',
+      default: "light",
       values: [
         {
-          name: 'dark',
-          value: '#0f0f0f',
+          name: "light",
+          value: "#ffffff",
         },
         {
-          name: 'light',
-          value: '#ffffff',
+          name: "dark",
+          value: "#0f0f0f",
         },
       ],
-    },
-  },
-}
-
-export default preview;
+    }
+  }
+} satisfies Preview;
