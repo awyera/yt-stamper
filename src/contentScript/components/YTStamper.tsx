@@ -100,7 +100,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
         {timestamps.length
           ? timestamps.map((timestamp) => (
               <Stamp
-                className="my-2 border-t border-t-gray-500 border-solid px-2 pt-2 first:mt-0 first:border-t-0"
+                className="my-2 border-t border-t-gray-500 border-solid px-1 pt-2 first:mt-0 first:border-t-0"
                 key={timestamp.id}
                 video={video}
                 timestamp={timestamp}

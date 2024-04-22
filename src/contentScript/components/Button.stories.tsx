@@ -18,7 +18,7 @@ export const Text: Story = {
 export const Icon: Story = {
   render: () => (
     <Button circle>
-      <Plus />
+      <Plus size="1em" />
     </Button>
   ),
 };

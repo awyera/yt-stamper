@@ -33,9 +33,9 @@ export const Primary: Story = {
 export const WithItem: Story = {
   render: () => {
     const [timestamps, setTimestamps] = useState<Timestamp[]>([
-      { id: nanoid(), time: "00:00", text: "text" },
-      { id: nanoid(), time: "00:00", text: "text" },
-      { id: nanoid(), time: "00:00", text: "text" },
+      { id: nanoid(), time: "00:00:00", text: "text" },
+      { id: nanoid(), time: "00:00:00", text: "text" },
+      { id: nanoid(), time: "00:00:00", text: "text" },
     ]);
     return <YTStamper timestamps={timestamps} onChange={setTimestamps} />;
   },
