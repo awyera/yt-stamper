@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { Timestamp } from "../../lib/types";
 import { Header } from "./Header";
 import { Stamp } from "./Stamp";
-import { parseTime } from "../lib/time";
+import { formatTime, parseTime } from "../lib/time";
 
 interface Props {
   timestamps: Timestamp[];
@@ -59,7 +59,8 @@ export function YTStamper({ timestamps, onChange }: Props) {
   // timestamp を追加
   function addTimestamp() {
     setIsOpen(true);
-    onChange([...timestamps, { id: nanoid(), time: "", text: "" }]);
+    const time = isOpen ? "" : formatTime(video.currentTime);
+    onChange([...timestamps, { id: nanoid(), time, text: "" }]);
     setShouldScrollToButton(true);
   }
 
