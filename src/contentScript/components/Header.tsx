@@ -76,15 +76,15 @@ export function Header({ isOpen, skip, onSort, onClipboardCopy, onAddTimestamp, 
         </Button>
       </ButtonGroup>
 
-      <Button className="ml-auto" title="時間順にソート" circle onClick={onSort}>
-        <ArrowDown01 size="1em" />
-      </Button>
-
-      <Button title="クリップボードにコピー" circle onClick={onClipboardCopy}>
+      <Button className="ml-auto" title="クリップボードにコピー" circle onClick={onClipboardCopy}>
         <ClipboardCopy size="1em" />
       </Button>
 
-      <Button circle title="スタンプを追加" onClick={onAddTimestamp}>
+      <Button title="時間順にソート" circle onClick={onSort}>
+        <ArrowDown01 size="1em" />
+      </Button>
+
+      <Button title="スタンプを追加" circle onClick={onAddTimestamp}>
         <Plus size="1em" />
       </Button>
     </header>

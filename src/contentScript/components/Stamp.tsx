@@ -39,18 +39,18 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
   }
 
   return (
-    <div className={twMerge("flex items-start gap-1", className)}>
+    <div className={twMerge("flex items-center gap-1", className)}>
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
       <input
-        className="w-20 grow border border-gray-500 px-1 py-1 text-base leading-normal"
+        className="w-20 grow rounded border border-gray-500 px-1 py-1 text-base leading-normal"
         type="text"
         value={timestamp.text}
         onChange={handleTextChange}
         onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => e.stopPropagation()}
       />
 
-      <ButtonGroup className="self-center">
+      <ButtonGroup >
         <Button className="text-base" title="再生" tabIndex={-1} disabled={!timestamp.time} onClick={handlePlay}>
           <Play size="1em" />
         </Button>
