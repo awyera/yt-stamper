@@ -4,6 +4,22 @@ import { App } from "./App";
 
 const ELEMENT_NAME = "yt-stamper";
 
+document.addEventListener(
+  "keydown",
+  (e) => {
+    // target が yt-stamper の場合
+    if (e.target instanceof HTMLElement && e.target.nodeName === ELEMENT_NAME.toUpperCase()) {
+      const composedPathZero = e.composedPath()[0];
+
+      // input 要素によるイベントなら伝播を止める
+      if (composedPathZero instanceof HTMLElement && composedPathZero.nodeName === "INPUT") {
+        e.stopImmediatePropagation();
+      }
+    }
+  },
+  true,
+);
+
 class YTStamperElement extends HTMLElement {
   constructor() {
     super();
