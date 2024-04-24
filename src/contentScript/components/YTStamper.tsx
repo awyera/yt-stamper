@@ -1,9 +1,9 @@
 import { nanoid } from "nanoid";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Timestamp } from "../../lib/types";
+import { formatTime, parseTime } from "../lib/time";
 import { Header } from "./Header";
 import { Stamp } from "./Stamp";
-import { formatTime, parseTime } from "../lib/time";
 
 interface Props {
   timestamps: Timestamp[];
@@ -111,7 +111,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
         onClick={toggleOpen}
       />
 
-      <div className="grow overflow-y-scroll" style={{ height: isOpen ? "auto" : 0 }} ref={listRef}>
+      <div className="grow overflow-y-scroll overscroll-contain" style={{ height: isOpen ? "auto" : 0 }} ref={listRef}>
         {timestamps.length
           ? timestamps.map((timestamp) => (
               <Stamp
