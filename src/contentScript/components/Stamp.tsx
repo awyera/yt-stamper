@@ -47,10 +47,11 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
         type="text"
         value={timestamp.text}
         onChange={handleTextChange}
-        onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+        onKeyUp={(e) => e.stopPropagation()}
       />
 
-      <ButtonGroup >
+      <ButtonGroup>
         <Button className="text-base" title="再生" tabIndex={-1} disabled={!timestamp.time} onClick={handlePlay}>
           <Play size="1em" />
         </Button>
