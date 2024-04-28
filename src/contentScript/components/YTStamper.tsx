@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { Timestamp } from "../../lib/types";
+import { useShortcuts } from "../hooks/useShortcut";
 import { formatTime, parseTime } from "../lib/time";
 import { Header } from "./Header";
 import { Stamp } from "./Stamp";
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export function YTStamper({ timestamps, onChange }: Props) {
+  useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip });
+
   const [isOpen, setIsOpen] = useState(true);
   const [height, setHeight] = useState("");
   const [shouldScrollToButton, setShouldScrollToButton] = useState(false);

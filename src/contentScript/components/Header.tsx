@@ -9,9 +9,7 @@ import {
   ClipboardCopy,
   Plus,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import { DEFAULT_SKIP_SECONDS } from "../../lib/const";
-import type { SkipSeconds } from "../../lib/types";
+import { useSkipSeconds } from "../hooks/useSkipSeconds";
 import { Button } from "./Button";
 import { ButtonGroup } from "./ButtonGroup";
 
@@ -25,31 +23,7 @@ interface Props {
 }
 
 export function Header({ isOpen, skip, onSort, onClipboardCopy, onAddTimestamp, onClick }: Props) {
-  const [skipSeconds, setSkipSeconds] = useState<SkipSeconds>(DEFAULT_SKIP_SECONDS);
-
-  function skipBackwardLong() {
-    skip(skipSeconds.longBackward * -1);
-  }
-
-  function skipBackwardShort() {
-    skip(skipSeconds.shortBackward * -1);
-  }
-
-  function skipForwardShort() {
-    skip(skipSeconds.shortFoward);
-  }
-
-  function skipForwardLong() {
-    skip(skipSeconds.longFoward);
-  }
-
-  useEffect(() => {
-    chrome.storage?.local.get("skipSeconds", (result) => {
-      if (result.skipSeconds) {
-        setSkipSeconds(result.skipSeconds);
-      }
-    });
-  }, []);
+  const { skipSeconds, skipBackwardLong, skipBackwardShort, skipForwardLong, skipForwardShort } = useSkipSeconds(skip);
 
   return (
     <header className="flex h-8 items-center gap-2 bg-gray-500 px-2 py-1 text-white">
