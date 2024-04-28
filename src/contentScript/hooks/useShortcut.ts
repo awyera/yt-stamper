@@ -47,11 +47,11 @@ export function useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip }
         skipBackwardShort();
         return;
       }
-      if (isKeyMatch(shortcuts.longFoward, e)) {
+      if (isKeyMatch(shortcuts.longForward, e)) {
         skipForwardLong();
         return;
       }
-      if (isKeyMatch(shortcuts.shortFoward, e)) {
+      if (isKeyMatch(shortcuts.shortForward, e)) {
         skipForwardShort();
         return;
       }

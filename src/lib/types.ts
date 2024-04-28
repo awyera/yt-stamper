@@ -7,8 +7,8 @@ export interface Timestamp {
 export interface SkipSeconds {
   longBackward: number;
   shortBackward: number;
-  shortFoward: number;
-  longFoward: number;
+  shortForward: number;
+  longForward: number;
 }
 
 export interface Shortcut {
@@ -24,6 +24,6 @@ export interface Shortcuts {
   copyClipboard: Shortcut;
   longBackward: Shortcut;
   shortBackward: Shortcut;
-  shortFoward: Shortcut;
-  longFoward: Shortcut;
+  shortForward: Shortcut;
+  longForward: Shortcut;
 }

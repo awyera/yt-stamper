@@ -14,11 +14,11 @@ export function useSkipSeconds(skip: (seconds: number) => void) {
   }
 
   function skipForwardShort() {
-    skip(skipSeconds.shortFoward);
+    skip(skipSeconds.shortForward);
   }
 
   function skipForwardLong() {
-    skip(skipSeconds.longFoward);
+    skip(skipSeconds.longForward);
   }
 
   useEffect(() => {

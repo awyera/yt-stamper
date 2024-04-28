@@ -40,12 +40,12 @@ export function Header({ isOpen, skip, onSort, onClipboardCopy, onAddTimestamp, 
           <ChevronLeft className="mt-[2px]" size="1em" />
           {skipSeconds.shortBackward}s
         </Button>
-        <Button title={`${skipSeconds.shortFoward}秒進む`} onClick={skipForwardShort}>
-          {skipSeconds.shortFoward}s
+        <Button title={`${skipSeconds.shortForward}秒進む`} onClick={skipForwardShort}>
+          {skipSeconds.shortForward}s
           <ChevronRight className="mt-[2px]" size="1em" />
         </Button>
-        <Button title={`${skipSeconds.longFoward}秒進む`} onClick={skipForwardLong}>
-          {skipSeconds.longFoward}s
+        <Button title={`${skipSeconds.longForward}秒進む`} onClick={skipForwardLong}>
+          {skipSeconds.longForward}s
           <ChevronsRight className="mt-[2px]" size="1em" />
         </Button>
       </ButtonGroup>
