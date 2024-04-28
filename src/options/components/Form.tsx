@@ -14,7 +14,7 @@ export function Form<T extends string | number>({ className, inputClassName, lab
   const id = useId();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const typedValue = value === 'number' ? e.currentTarget.valueAsNumber : e.currentTarget.value;
+    const typedValue = typeof value === 'number' ? e.currentTarget.valueAsNumber : e.currentTarget.value;
     onChange(name, typedValue as T);
   }
 
