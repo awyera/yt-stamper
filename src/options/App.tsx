@@ -51,14 +51,14 @@ export function App() {
         />
         <Form
           inputClassName="w-20"
-          label="Short Foward (sec)"
+          label="Short Forward (sec)"
           name="shortForward"
           value={skipSeconds.shortForward}
           onChange={handleSkipChange}
         />
         <Form
           inputClassName="w-20"
-          label="Long Foward (sec)"
+          label="Long Forward (sec)"
           name="longForward"
           value={skipSeconds.longForward}
           onChange={handleSkipChange}
