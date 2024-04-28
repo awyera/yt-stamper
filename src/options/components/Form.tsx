@@ -1,20 +1,21 @@
-import { useId, type ChangeEvent } from "react";
+import { type ChangeEvent, useId } from "react";
 import { twMerge } from "tailwind-merge";
 
-interface Props {
+interface Props<T extends string | number> {
   className?: string;
   inputClassName?: string;
   label: string;
   name: string;
-  value: number;
-  onChange: (name: string, value: number) => void;
+  value: T;
+  onChange: (name: string, value: T) => void;
 }
 
-export function Form({ className, inputClassName, label, name, value, onChange }: Props) {
+export function Form<T extends string | number>({ className, inputClassName, label, name, value, onChange }: Props<T>) {
   const id = useId();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    onChange(name, e.currentTarget.valueAsNumber);
+    const typedValue = typeof value === 'number' ? e.currentTarget.valueAsNumber : e.currentTarget.value;
+    onChange(name, typedValue as T);
   }
 
   return (
@@ -24,8 +25,8 @@ export function Form({ className, inputClassName, label, name, value, onChange }
       </label>
       <input
         id={id}
-        className={twMerge("w-20 border border-gray-500 px-1 py-1 text-base leading-normal", inputClassName)}
-        type="number"
+        className={twMerge("border border-gray-500 px-1 py-1 text-base leading-normal", inputClassName)}
+        type={typeof value}
         min="0"
         value={value}
         onChange={handleChange}

@@ -1,45 +1,69 @@
 import { useEffect, useState } from "react";
-import type { SkipSeconds } from "../lib/types";
+import { DEFAULT_SHORTCUTS, DEFAULT_SKIP_SECONDS } from "../lib/const";
+import type { Shortcuts, SkipSeconds } from "../lib/types";
 import { Form } from "./components/Form";
-import { DEFAULT_SKIP_SECONDS } from "../lib/const";
 
 export function App() {
   const [skipSeconds, setSkipSeconds] = useState<SkipSeconds>(DEFAULT_SKIP_SECONDS);
+  const [shortcuts, setShortcuts] = useState<Shortcuts>(DEFAULT_SHORTCUTS);
   const [message, setMessage] = useState<string>("");
 
-  function handleChange(name: string, value: number) {
+  function handleSkipChange(name: string, value: number) {
     setMessage("");
     setSkipSeconds((skipSeconds) => ({ ...skipSeconds, [name]: value }));
   }
 
   function handleSave() {
-    chrome.storage.local.set({ skipSeconds }).then(() => {
+    chrome.storage.local.set({ skipSeconds, shortcuts }).then(() => {
       setMessage("保存しました");
     });
   }
 
   // storage から読み込み
   useEffect(() => {
-    chrome.storage?.local.get("skipSeconds", (result) => {
+    chrome.storage?.local.get(["skipSeconds", "shortcuts"], (result) => {
       if (result.skipSeconds) {
         setSkipSeconds(result.skipSeconds);
-        return;
       }
-      setSkipSeconds(DEFAULT_SKIP_SECONDS);
+      if (result.shortcuts) {
+        setShortcuts(result.shortcuts);
+      }
     });
   }, []);
 
   return (
-    <div className="mx-auto my-8 w-96 border border-gray-500 border-solid px-4 py-2">
-      <Form label="Long Backward (sec)" name="longBackward" value={skipSeconds.longBackward} onChange={handleChange} />
-      <Form
-        label="Short Backward (sec)"
-        name="shortBackward"
-        value={skipSeconds.shortBackward}
-        onChange={handleChange}
-      />
-      <Form label="Short Foward (sec)" name="shortFoward" value={skipSeconds.shortFoward} onChange={handleChange} />
-      <Form label="Long Foward (sec)" name="longFoward" value={skipSeconds.longFoward} onChange={handleChange} />
+    <section className="mx-auto my-8 w-96 border border-gray-500 border-solid px-4 py-2">
+      <section>
+        <h2 className="text-lg">スキップ秒数</h2>
+        <Form
+          inputClassName="w-20"
+          label="Long Backward (sec)"
+          name="longBackward"
+          value={skipSeconds.longBackward}
+          onChange={handleSkipChange}
+        />
+        <Form
+          inputClassName="w-20"
+          label="Short Backward (sec)"
+          name="shortBackward"
+          value={skipSeconds.shortBackward}
+          onChange={handleSkipChange}
+        />
+        <Form
+          inputClassName="w-20"
+          label="Short Forward (sec)"
+          name="shortForward"
+          value={skipSeconds.shortForward}
+          onChange={handleSkipChange}
+        />
+        <Form
+          inputClassName="w-20"
+          label="Long Forward (sec)"
+          name="longForward"
+          value={skipSeconds.longForward}
+          onChange={handleSkipChange}
+        />
+      </section>
 
       <div className="mt-4 flex items-center justify-end gap-2">
         {message ? <p className="font-bold text-green-600 text-sm">{message}</p> : null}
@@ -51,6 +75,6 @@ export function App() {
           SAVE
         </button>
       </div>
-    </div>
+    </section>
   );
 }
