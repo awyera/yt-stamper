@@ -6,15 +6,24 @@ interface Props<T extends string | number> {
   inputClassName?: string;
   label: string;
   name: string;
+  type: "text" | "number";
   value: T;
   onChange: (name: string, value: T) => void;
 }
 
-export function Form<T extends string | number>({ className, inputClassName, label, name, value, onChange }: Props<T>) {
+export function Form<T extends string | number>({
+  className,
+  inputClassName,
+  label,
+  name,
+  type = 'text',
+  value,
+  onChange,
+}: Props<T>) {
   const id = useId();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    const typedValue = typeof value === 'number' ? e.currentTarget.valueAsNumber : e.currentTarget.value;
+    const typedValue = type === "number" ? e.currentTarget.valueAsNumber : e.currentTarget.value;
     onChange(name, typedValue as T);
   }
 
@@ -26,7 +35,7 @@ export function Form<T extends string | number>({ className, inputClassName, lab
       <input
         id={id}
         className={twMerge("border border-gray-500 px-1 py-1 text-base leading-normal", inputClassName)}
-        type={typeof value}
+        type={type}
         min="0"
         value={value}
         onChange={handleChange}

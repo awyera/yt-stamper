@@ -36,6 +36,7 @@ export function App() {
       <section>
         <h2 className="text-lg">スキップ秒数</h2>
         <Form
+          type="number"
           inputClassName="w-20"
           label="Long Backward (sec)"
           name="longBackward"
@@ -43,6 +44,7 @@ export function App() {
           onChange={handleSkipChange}
         />
         <Form
+          type="number"
           inputClassName="w-20"
           label="Short Backward (sec)"
           name="shortBackward"
@@ -50,6 +52,7 @@ export function App() {
           onChange={handleSkipChange}
         />
         <Form
+          type="number"
           inputClassName="w-20"
           label="Short Forward (sec)"
           name="shortForward"
@@ -57,6 +60,7 @@ export function App() {
           onChange={handleSkipChange}
         />
         <Form
+          type="number"
           inputClassName="w-20"
           label="Long Forward (sec)"
           name="longForward"
