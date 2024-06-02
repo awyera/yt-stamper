@@ -1,5 +1,5 @@
-import Bun from 'bun';
 import { rm } from 'node:fs/promises';
+import Bun, { $ } from 'bun';
 
 const OUTDIR = './out';
 
@@ -14,13 +14,5 @@ await Bun.build({
   naming: "[dir].[ext]"
 })
 
-// // Get contentScript filename.
-// const outdir = await readdir(OUTDIR)
-// const contentScriptName = outdir.find(v => v.startsWith('contentScript.'))
-
-// // Copy manifest.json
-// const manifestjson = Bun.file('./src/manifest.json', { type: 'application/json' })
-// const manifest = await manifestjson.json();
-
-// manifest.content_scripts[0].js[0] = contentScriptName;
-// Bun.write(path.join(OUTDIR, 'manifest.json'), JSON.stringify(manifest, null, 2))
+// Copy manifest.json
+$`cp ./src/manifest.json ./out/manifest.json`;
