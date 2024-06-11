@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useVideoId } from "./hooks/useVideoId";
-import type { Timestamp } from "../lib/types";
+import { TrieProvider } from "../context/TrieContext";
 import { loadData, saveData } from "../lib/storage";
+import type { Timestamp } from "../lib/types";
 import { YTStamper } from "./components/YTStamper";
+import { useVideoId } from "./hooks/useVideoId";
 
 export function App() {
   const videoId = useVideoId();
@@ -22,5 +23,9 @@ export function App() {
     });
   }, [videoId]);
 
-  return <YTStamper timestamps={timestamps} onChange={handleChange} />;
+  return (
+    <TrieProvider>
+      <YTStamper timestamps={timestamps} onChange={handleChange} />
+    </TrieProvider>
+  );
 }
