@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YTStamper",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Easily create timestamps in YouTube videos.",
   "permissions": [
     "webNavigation",
@@ -31,7 +31,8 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.youtube.com/watch*"
+        "*://*.youtube.com/watch*",
+        "*://*.youtube.com/live/*"
       ],
       "js": [
         "contentScript.js"
