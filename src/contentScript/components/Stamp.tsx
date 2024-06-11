@@ -1,8 +1,8 @@
 import { Play, Timer, Trash } from 'lucide-react';
-import type { ChangeEvent, KeyboardEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
 import type { Timestamp } from '../../lib/types';
 import { formatTime, parseTime } from '../lib/time';
+import { Autocomplete } from "./Autocomplete";
 import { Button } from './Button';
 import { ButtonGroup } from './ButtonGroup';
 import { TimeInput } from './TimeInput';
@@ -21,9 +21,8 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
     onChange({ ...timestamp, time });
   }
 
-  function handleTextChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.currentTarget.value;
-    onChange({ ...timestamp, text: value });
+  function handleTextChange(text: string) {
+    onChange({ ...timestamp, text });
   }
 
   function handlePlay() {
@@ -42,14 +41,7 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
     <div className={twMerge('flex items-center gap-1', className)}>
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
-      <input
-        className="w-20 grow rounded border border-gray-500 px-1 py-1 text-base leading-normal"
-        type="text"
-        value={timestamp.text}
-        onChange={handleTextChange}
-        onKeyDown={(e) => e.stopPropagation()}
-        onKeyUp={(e) => e.stopPropagation()}
-      />
+      <Autocomplete className="w-20 grow" value={timestamp.text} onChange={handleTextChange} />
 
       <ButtonGroup>
         <Button className="text-base" title="再生" tabIndex={-1} disabled={!timestamp.time} onClick={handlePlay}>
