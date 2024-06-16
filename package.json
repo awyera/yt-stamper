@@ -12,7 +12,8 @@
     "build:dev:css": "tailwindcss -i ./src/index.css -o ./out/index.css --watch",
     "copy": "bun --watch scripts/copy.ts",
     "clean": "rm -rf ./out",
-    "storybook": "storybook dev -p 9009 --no-open"
+    "storybook": "storybook dev -p 9009 --no-open",
+    "check": "biome check --write"
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.6.0",
@@ -24,18 +25,18 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.0",
-    "@storybook/addon-a11y": "^8.1.6",
-    "@storybook/addon-essentials": "^8.1.6",
-    "@storybook/react": "^8.1.6",
-    "@storybook/react-vite": "^8.1.6",
-    "@types/bun": "^1.1.3",
+    "@biomejs/biome": "^1.8.1",
+    "@storybook/addon-a11y": "^8.1.9",
+    "@storybook/addon-essentials": "^8.1.9",
+    "@storybook/react": "^8.1.9",
+    "@storybook/react-vite": "^8.1.9",
+    "@types/bun": "^1.1.4",
     "@types/chrome": "^0.0.266",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "concurrently": "^8.2.2",
-    "prettier": "^3.3.1",
-    "storybook": "^8.1.6",
+    "prettier": "^3.3.2",
+    "storybook": "^8.1.9",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.4.5"
   }

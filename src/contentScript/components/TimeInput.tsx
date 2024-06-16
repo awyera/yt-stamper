@@ -1,14 +1,14 @@
-import { ChevronDown, ChevronUp } from "lucide-react";
-import type { ChangeEvent } from "react";
-import type { Timestamp } from "../../lib/types";
-import { formatTime, parseTime } from "../lib/time";
+import { ChevronDown, ChevronUp } from 'lucide-react';
+import type { ChangeEvent } from 'react';
+import type { Timestamp } from '../../lib/types';
+import { formatTime, parseTime } from '../lib/time';
 
 function isValidFormat(time: string) {
   return /^(\d{1,2}:)?(\d{1,2}:)?\d+$/.test(time);
 }
 
 interface Props {
-  time: Timestamp["time"];
+  time: Timestamp['time'];
   onChange: (time: string) => void;
 }
 

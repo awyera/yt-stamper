@@ -1,4 +1,4 @@
-import type { Shortcuts, SkipSeconds } from "./types";
+import type { Shortcuts, SkipSeconds } from './types';
 
 export const DEFAULT_SKIP_SECONDS: SkipSeconds = {
   longBackward: 60,
@@ -15,4 +15,4 @@ export const DEFAULT_SHORTCUTS: Shortcuts = {
   shortBackward: { alt: true, key: 'h' },
   shortForward: { alt: true, key: 'l' },
   longForward: { alt: true, shift: true, key: 'l' },
-}
+};

@@ -8,10 +8,10 @@ import {
   ChevronsRight,
   ClipboardCopy,
   Plus,
-} from "lucide-react";
-import { useSkipSeconds } from "../hooks/useSkipSeconds";
-import { Button } from "./Button";
-import { ButtonGroup } from "./ButtonGroup";
+} from 'lucide-react';
+import { useSkipSeconds } from '../hooks/useSkipSeconds';
+import { Button } from './Button';
+import { ButtonGroup } from './ButtonGroup';
 
 interface Props {
   isOpen: boolean;

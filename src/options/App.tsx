@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
-import { DEFAULT_SHORTCUTS, DEFAULT_SKIP_SECONDS } from "../lib/const";
-import type { Shortcuts, SkipSeconds } from "../lib/types";
-import { Form } from "./components/Form";
+import { useEffect, useState } from 'react';
+import { DEFAULT_SHORTCUTS, DEFAULT_SKIP_SECONDS } from '../lib/const';
+import type { Shortcuts, SkipSeconds } from '../lib/types';
+import { Form } from './components/Form';
 
 export function App() {
   const [skipSeconds, setSkipSeconds] = useState<SkipSeconds>(DEFAULT_SKIP_SECONDS);
   const [shortcuts, setShortcuts] = useState<Shortcuts>(DEFAULT_SHORTCUTS);
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState<string>('');
 
   function handleSkipChange(name: string, value: number) {
-    setMessage("");
+    setMessage('');
     setSkipSeconds((skipSeconds) => ({ ...skipSeconds, [name]: value }));
   }
 
   function handleSave() {
     chrome.storage.local.set({ skipSeconds, shortcuts }).then(() => {
-      setMessage("保存しました");
+      setMessage('保存しました');
     });
   }
 
   // storage から読み込み
   useEffect(() => {
-    chrome.storage?.local.get(["skipSeconds", "shortcuts"], (result) => {
+    chrome.storage?.local.get(['skipSeconds', 'shortcuts'], (result) => {
       if (result.skipSeconds) {
         setSkipSeconds(result.skipSeconds);
       }

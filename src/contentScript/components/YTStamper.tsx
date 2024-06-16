@@ -1,10 +1,10 @@
-import { nanoid } from "nanoid";
-import { useEffect, useMemo, useRef, useState } from "react";
-import type { Timestamp } from "../../lib/types";
-import { useShortcuts } from "../hooks/useShortcut";
-import { formatTime, parseTime } from "../lib/time";
-import { Header } from "./Header";
-import { Stamp } from "./Stamp";
+import { nanoid } from 'nanoid';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type { Timestamp } from '../../lib/types';
+import { useShortcuts } from '../hooks/useShortcut';
+import { formatTime, parseTime } from '../lib/time';
+import { Header } from './Header';
+import { Stamp } from './Stamp';
 
 interface Props {
   timestamps: Timestamp[];
@@ -15,10 +15,10 @@ export function YTStamper({ timestamps, onChange }: Props) {
   useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip });
 
   const [isOpen, setIsOpen] = useState(true);
-  const [height, setHeight] = useState("");
+  const [height, setHeight] = useState('');
   const [shouldScrollToButton, setShouldScrollToButton] = useState(false);
 
-  const video = useMemo(() => document.querySelector("video") as HTMLVideoElement, []);
+  const video = useMemo(() => document.querySelector('video') as HTMLVideoElement, []);
 
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -37,7 +37,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
   // 時間昇順にソート
   function sort() {
     const sorted = [...timestamps].sort((a, b) => {
-      if (a.time === "") {
+      if (a.time === '') {
         // 未入力は末尾
         return 1;
       }
@@ -51,7 +51,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
     const text = timestamps
       .filter((t) => t.time)
       .map((t) => `${t.time} ${t.text}`)
-      .join("\n");
+      .join('\n');
     navigator.clipboard.writeText(text);
   }
 
@@ -62,8 +62,8 @@ export function YTStamper({ timestamps, onChange }: Props) {
   // timestamp を追加
   function addTimestamp() {
     setIsOpen(true);
-    const time = isOpen ? "" : formatTime(video.currentTime);
-    onChange([...timestamps, { id: nanoid(), time, text: "" }]);
+    const time = isOpen ? '' : formatTime(video.currentTime);
+    onChange([...timestamps, { id: nanoid(), time, text: '' }]);
     setShouldScrollToButton(true);
   }
 
@@ -79,7 +79,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
 
   // video の高さを更新
   useEffect(() => {
-    const videoElm = document.querySelector("video");
+    const videoElm = document.querySelector('video');
     if (!videoElm) return;
 
     const resizeObserver = new ResizeObserver((entries) => {
@@ -114,7 +114,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
         onClick={toggleOpen}
       />
 
-      <div className="grow overflow-y-scroll overscroll-contain" style={{ height: isOpen ? "auto" : 0 }} ref={listRef}>
+      <div className="grow overflow-y-scroll overscroll-contain" style={{ height: isOpen ? 'auto' : 0 }} ref={listRef}>
         {timestamps.length
           ? timestamps.map((timestamp) => (
               <Stamp

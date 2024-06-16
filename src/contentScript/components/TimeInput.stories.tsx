@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { TimeInput } from "./TimeInput";
+import { TimeInput } from './TimeInput';
 
 const meta: Meta<typeof TimeInput> = {
   component: TimeInput,

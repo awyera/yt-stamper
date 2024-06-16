@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from "./Button";
-import { ButtonGroup } from "./ButtonGroup";
+import { Button } from './Button';
+import { ButtonGroup } from './ButtonGroup';
 
 const meta: Meta<typeof ButtonGroup> = {
   component: ButtonGroup,

@@ -13,7 +13,7 @@ export function useVideoId() {
       }
     };
 
-    chrome.runtime.onMessage.addListener(handleHistoryChange)
+    chrome.runtime.onMessage.addListener(handleHistoryChange);
 
     return () => {
       chrome.runtime.onMessage.removeListener(handleHistoryChange);

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { DEFAULT_SKIP_SECONDS } from "../../lib/const";
-import type { SkipSeconds } from "../../lib/types";
+import { useEffect, useState } from 'react';
+import { DEFAULT_SKIP_SECONDS } from '../../lib/const';
+import type { SkipSeconds } from '../../lib/types';
 
 export function useSkipSeconds(skip: (seconds: number) => void) {
   const [skipSeconds, setSkipSeconds] = useState<SkipSeconds>(DEFAULT_SKIP_SECONDS);
@@ -22,7 +22,7 @@ export function useSkipSeconds(skip: (seconds: number) => void) {
   }
 
   useEffect(() => {
-    chrome.storage?.local.get("skipSeconds", (result) => {
+    chrome.storage?.local.get('skipSeconds', (result) => {
       if (result.skipSeconds) {
         setSkipSeconds(result.skipSeconds);
       }
@@ -35,5 +35,5 @@ export function useSkipSeconds(skip: (seconds: number) => void) {
     skipBackwardShort,
     skipForwardShort,
     skipForwardLong,
-  }
+  };
 }

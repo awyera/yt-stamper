@@ -1,11 +1,11 @@
-import { Play, Timer, Trash } from "lucide-react";
-import type { ChangeEvent, KeyboardEvent } from "react";
-import { twMerge } from "tailwind-merge";
-import type { Timestamp } from "../../lib/types";
-import { formatTime, parseTime } from "../lib/time";
-import { Button } from "./Button";
-import { ButtonGroup } from "./ButtonGroup";
-import { TimeInput } from "./TimeInput";
+import { Play, Timer, Trash } from 'lucide-react';
+import type { ChangeEvent, KeyboardEvent } from 'react';
+import { twMerge } from 'tailwind-merge';
+import type { Timestamp } from '../../lib/types';
+import { formatTime, parseTime } from '../lib/time';
+import { Button } from './Button';
+import { ButtonGroup } from './ButtonGroup';
+import { TimeInput } from './TimeInput';
 
 interface Props {
   className?: string;
@@ -39,7 +39,7 @@ export function Stamp({ className, video, timestamp, seek, onChange, onDelete }:
   }
 
   return (
-    <div className={twMerge("flex items-center gap-1", className)}>
+    <div className={twMerge('flex items-center gap-1', className)}>
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
       <input

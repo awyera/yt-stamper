@@ -1,18 +1,18 @@
-import "@webcomponents/custom-elements";
-import { createRoot } from "react-dom/client";
-import { App } from "./App";
+import '@webcomponents/custom-elements';
+import { createRoot } from 'react-dom/client';
+import { App } from './App';
 
-const ELEMENT_NAME = "yt-stamper";
+const ELEMENT_NAME = 'yt-stamper';
 
 document.addEventListener(
-  "keydown",
+  'keydown',
   (e) => {
     // target が yt-stamper の場合
     if (e.target instanceof HTMLElement && e.target.nodeName === ELEMENT_NAME.toUpperCase()) {
       const composedPathZero = e.composedPath()[0];
 
       // input 要素によるイベントなら伝播を止める
-      if (composedPathZero instanceof HTMLElement && composedPathZero.nodeName === "INPUT") {
+      if (composedPathZero instanceof HTMLElement && composedPathZero.nodeName === 'INPUT') {
         e.stopImmediatePropagation();
       }
     }
@@ -23,11 +23,11 @@ document.addEventListener(
 class YTStamperElement extends HTMLElement {
   constructor() {
     super();
-    const shadowRoot = this.attachShadow({ mode: "open" });
+    const shadowRoot = this.attachShadow({ mode: 'open' });
 
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = chrome.runtime.getURL("index.css");
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = chrome.runtime.getURL('index.css');
     shadowRoot.append(link);
   }
 
@@ -40,7 +40,7 @@ class YTStamperElement extends HTMLElement {
 }
 
 const observer = new MutationObserver((_mutations, obs) => {
-  const container = document.querySelector("#secondary-inner");
+  const container = document.querySelector('#secondary-inner');
   if (container) {
     if (!customElements.get(ELEMENT_NAME)) {
       customElements.define(ELEMENT_NAME, YTStamperElement);

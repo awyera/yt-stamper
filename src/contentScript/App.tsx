@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { useVideoId } from "./hooks/useVideoId";
-import type { Timestamp } from "../lib/types";
-import { loadData, saveData } from "../lib/storage";
-import { YTStamper } from "./components/YTStamper";
+import { useEffect, useState } from 'react';
+import { loadData, saveData } from '../lib/storage';
+import type { Timestamp } from '../lib/types';
+import { YTStamper } from './components/YTStamper';
+import { useVideoId } from './hooks/useVideoId';
 
 export function App() {
   const videoId = useVideoId();

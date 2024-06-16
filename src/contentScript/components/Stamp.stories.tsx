@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { Stamp } from "./Stamp";
-import { useState } from "react";
-import type { Timestamp } from "../../lib/types";
-import { nanoid } from "nanoid";
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
+import type { Timestamp } from '../../lib/types';
+import { Stamp } from './Stamp';
 
 const meta: Meta<typeof Stamp> = {
   component: Stamp,
@@ -15,10 +15,10 @@ type Story = StoryObj<typeof Stamp>;
 
 export const Primary: Story = {
   render: () => {
-    const [timestamp, setTimestamp] = useState<Timestamp>({ id: nanoid(), time: "00:00", text: "text" });
+    const [timestamp, setTimestamp] = useState<Timestamp>({ id: nanoid(), time: '00:00', text: 'text' });
     return (
       <Stamp
-        video={document.createElement("video")}
+        video={document.createElement('video')}
         timestamp={timestamp}
         onChange={(timestamp) => {
           setTimestamp(timestamp);
@@ -30,13 +30,12 @@ export const Primary: Story = {
   },
 };
 
-
 export const Empty: Story = {
   render: () => {
-    const [timestamp, setTimestamp] = useState<Timestamp>({ id: nanoid(), time: "", text: "" });
+    const [timestamp, setTimestamp] = useState<Timestamp>({ id: nanoid(), time: '', text: '' });
     return (
       <Stamp
-        video={document.createElement("video")}
+        video={document.createElement('video')}
         timestamp={timestamp}
         onChange={(timestamp) => {
           setTimestamp(timestamp);

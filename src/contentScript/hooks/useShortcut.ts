@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { DEFAULT_SHORTCUTS } from "../../lib/const";
-import type { Shortcut, Shortcuts } from "../../lib/types";
-import { useSkipSeconds } from "./useSkipSeconds";
+import { useEffect, useState } from 'react';
+import { DEFAULT_SHORTCUTS } from '../../lib/const';
+import type { Shortcut, Shortcuts } from '../../lib/types';
+import { useSkipSeconds } from './useSkipSeconds';
 
 interface Props {
   toggleOpen: () => void;
@@ -22,7 +22,7 @@ function isKeyMatch(shortcut: Shortcut, e: KeyboardEvent): boolean {
 
 export function useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip }: Props) {
   const [shortcuts, setShortcuts] = useState<Shortcuts>(DEFAULT_SHORTCUTS);
-  const { skipBackwardLong, skipBackwardShort, skipForwardLong, skipForwardShort } = useSkipSeconds(skip)
+  const { skipBackwardLong, skipBackwardShort, skipForwardLong, skipForwardShort } = useSkipSeconds(skip);
 
   // ショートカット
   useEffect(() => {
@@ -61,15 +61,24 @@ export function useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip }
     return () => {
       document.removeEventListener('keydown', handleKeydown);
     };
-  }, [shortcuts, toggleOpen, addTimestamp, copyToClipboard, skipBackwardLong, skipBackwardShort, skipForwardShort, skipForwardLong]);
+  }, [
+    shortcuts,
+    toggleOpen,
+    addTimestamp,
+    copyToClipboard,
+    skipBackwardLong,
+    skipBackwardShort,
+    skipForwardShort,
+    skipForwardLong,
+  ]);
 
   // 保存済みのショートカットを読み込む
   useEffect(() => {
     chrome.storage?.local.get('shortcuts').then((result) => {
       console.log('result', result.shortcuts);
       if (result.shortcuts) {
-        setShortcuts(result.shortcuts)
+        setShortcuts(result.shortcuts);
       }
-    })
-  }, [])
+    });
+  }, []);
 }
