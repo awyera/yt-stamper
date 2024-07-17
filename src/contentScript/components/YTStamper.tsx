@@ -1,8 +1,9 @@
 import { nanoid } from 'nanoid';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Timestamp } from '../../lib/types';
 import { useShortcuts } from '../hooks/useShortcut';
 import { formatTime, parseTime } from '../lib/time';
+import { assertVideo } from '../lib/video-assert';
 import { Header } from './Header';
 import { Stamp } from './Stamp';
 
@@ -18,18 +19,20 @@ export function YTStamper({ timestamps, onChange }: Props) {
   const [height, setHeight] = useState('');
   const [shouldScrollToButton, setShouldScrollToButton] = useState(false);
 
-  const video = useMemo(() => document.querySelector('video') as HTMLVideoElement, []);
+  const [video, setVideo] = useState<HTMLVideoElement | null>(null);
 
   const listRef = useRef<HTMLDivElement>(null);
 
   // 指定秒分再生時間をスキップ
   function skip(seconds: number) {
+    assertVideo(video);
     video.currentTime += seconds;
     video.play();
   }
 
   // 再生時間を指定秒に変更
   function seek(seconds: number) {
+    assertVideo(video);
     video.currentTime = seconds;
     video.play();
   }
@@ -61,6 +64,8 @@ export function YTStamper({ timestamps, onChange }: Props) {
 
   // timestamp を追加
   function addTimestamp() {
+    assertVideo(video);
+
     setIsOpen(true);
     const time = isOpen ? '' : formatTime(video.currentTime);
     onChange([...timestamps, { id: nanoid(), time, text: '' }]);
@@ -102,6 +107,26 @@ export function YTStamper({ timestamps, onChange }: Props) {
       setShouldScrollToButton(false);
     }
   }, [shouldScrollToButton]);
+
+  // 500ms 毎に video element を検索し、取得できたら終わる
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const videoElm = document.querySelector('video');
+      if (videoElm) {
+        setVideo(videoElm);
+        clearInterval(interval);
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(interval);
+    };
+  });
+
+  if (!video) {
+    // 動画が読み込まれていない場合は何も表示しない
+    return null;
+  }
 
   return (
     <div className="flex flex-col rounded border border-gray-500 border-solid" style={{ maxHeight: height }}>
