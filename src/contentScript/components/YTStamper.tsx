@@ -121,7 +121,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
     return () => {
       clearInterval(interval);
     };
-  });
+  }, []);
 
   if (!video) {
     // 動画が読み込まれていない場合は何も表示しない
