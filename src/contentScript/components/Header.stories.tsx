@@ -12,6 +12,13 @@ type Story = StoryObj<typeof Header>;
 
 export const Primary: Story = {
   render: () => (
-    <Header isOpen onClick={() => {}} skip={() => {}} onClipboardCopy={() => {}} onAddTimestamp={() => {}} />
+    <Header
+      isOpen
+      onClick={() => {}}
+      skip={() => {}}
+      onClipboardCopy={() => {}}
+      onAddTimestamp={() => {}}
+      onSort={() => {}}
+    />
   ),
 };
