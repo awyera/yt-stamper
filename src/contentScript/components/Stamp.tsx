@@ -18,6 +18,7 @@ interface Props {
 
 export function Stamp({ className, video, timestamp, seek, onChange, onDelete }: Props) {
   function handleTimeChange(time: string) {
+    video.currentTime = parseTime(time);
     onChange({ ...timestamp, time });
   }
 
