@@ -14,7 +14,9 @@ export const Primary: Story = {
   render: () => (
     <Header
       isOpen
+      isDeleteMode
       onClick={() => {}}
+      toggleDeleteMode={() => {}}
       skip={() => {}}
       onClipboardCopy={() => {}}
       onAddTimestamp={() => {}}

@@ -16,6 +16,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
   useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip });
 
   const [isOpen, setIsOpen] = useState(true);
+  const [isDeleteMode, setDeleteMode] = useState(false);
   const [height, setHeight] = useState('');
   const [shouldScrollToButton, setShouldScrollToButton] = useState(false);
 
@@ -35,6 +36,11 @@ export function YTStamper({ timestamps, onChange }: Props) {
     assertVideo(video);
     video.currentTime = seconds;
     video.play();
+  }
+
+  // 削除モードの切替
+  function toggleDeleteMode() {
+    setDeleteMode((isDeleteMode) => !isDeleteMode);
   }
 
   // 時間昇順にソート
@@ -132,7 +138,9 @@ export function YTStamper({ timestamps, onChange }: Props) {
     <div className="flex flex-col rounded border border-gray-500 border-solid" style={{ maxHeight: height }}>
       <Header
         isOpen={isOpen}
+        isDeleteMode={isDeleteMode}
         skip={skip}
+        toggleDeleteMode={toggleDeleteMode}
         onSort={sort}
         onClipboardCopy={copyToClipboard}
         onAddTimestamp={addTimestamp}
@@ -147,6 +155,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
                 key={timestamp.id}
                 video={video}
                 timestamp={timestamp}
+                isDeleteMode={isDeleteMode}
                 onChange={changeTimestamp}
                 seek={seek}
                 onDelete={removeTimestamp}

@@ -7,6 +7,7 @@ import {
   ChevronsLeft,
   ChevronsRight,
   ClipboardCopy,
+  Eraser,
   Plus,
 } from 'lucide-react';
 import { useSkipSeconds } from '../hooks/useSkipSeconds';
@@ -15,14 +16,25 @@ import { ButtonGroup } from './ButtonGroup';
 
 interface Props {
   isOpen: boolean;
+  isDeleteMode: boolean;
   skip: (time: number) => void;
+  toggleDeleteMode: () => void;
   onSort: () => void;
   onClipboardCopy: () => void;
   onAddTimestamp: () => void;
   onClick: () => void;
 }
 
-export function Header({ isOpen, skip, onSort, onClipboardCopy, onAddTimestamp, onClick }: Props) {
+export function Header({
+  isOpen,
+  isDeleteMode,
+  skip,
+  toggleDeleteMode,
+  onSort,
+  onClipboardCopy,
+  onAddTimestamp,
+  onClick,
+}: Props) {
   const { skipSeconds, skipBackwardLong, skipBackwardShort, skipForwardLong, skipForwardShort } = useSkipSeconds(skip);
 
   return (
@@ -50,7 +62,17 @@ export function Header({ isOpen, skip, onSort, onClipboardCopy, onAddTimestamp, 
         </Button>
       </ButtonGroup>
 
-      <Button className="ml-auto" title="クリップボードにコピー" circle onClick={onClipboardCopy}>
+      <Button
+        className="ml-auto"
+        variant={isDeleteMode ? 'danger' : 'default'}
+        title="スタンプ削除モード切替"
+        circle
+        onClick={toggleDeleteMode}
+      >
+        <Eraser size="1em" />
+      </Button>
+
+      <Button title="クリップボードにコピー" circle onClick={onClipboardCopy}>
         <ClipboardCopy size="1em" />
       </Button>
 
