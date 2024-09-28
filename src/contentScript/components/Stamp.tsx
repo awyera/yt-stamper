@@ -1,9 +1,9 @@
 import { Play, Timer, Trash } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
+import { Button } from '../../components/Button';
 import type { Timestamp } from '../../lib/types';
 import { formatTime, parseTime } from '../lib/time';
 import { Autocomplete } from './Autocomplete';
-import { Button } from './Button';
 import { ButtonGroup } from './ButtonGroup';
 import { TimeInput } from './TimeInput';
 

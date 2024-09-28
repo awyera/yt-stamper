@@ -10,8 +10,8 @@ import {
   Eraser,
   Plus,
 } from 'lucide-react';
+import { Button } from '../../components/Button';
 import { useSkipSeconds } from '../hooks/useSkipSeconds';
-import { Button } from './Button';
 import { ButtonGroup } from './ButtonGroup';
 
 interface Props {

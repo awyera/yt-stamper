@@ -18,6 +18,23 @@ export function loadData(videoId: string): Promise<Timestamp[]> {
   });
 }
 
+export function loadAllData(): Promise<Record<string, Timestamp[]>> {
+  return new Promise((resolve) => {
+    chrome.storage.local.get(null, (result) => {
+      // skipSeconds と shortcuts は除外
+      const { shortcuts, skipSeconds, ...timestams } = result;
+
+      resolve(timestams);
+    });
+  });
+}
+
+export function removeData(videoId: string): Promise<void> {
+  return new Promise((resolve) => {
+    chrome.storage.local.remove(videoId, resolve);
+  })
+}
+
 // 保存されているタイムスタンプから text のトライ木を作成する
 export async function loadTrieFromLocalStorage(): Promise<Trie> {
   const trie = new Trie();

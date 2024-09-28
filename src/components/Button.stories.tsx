@@ -27,6 +27,10 @@ export const Disabled: Story = {
   render: () => <Button disabled>disabled</Button>,
 };
 
+export const Success: Story = {
+  render: () => <Button variant="success">Success</Button>,
+};
+
 export const Danger: Story = {
   render: () => <Button variant="danger">Danger</Button>,
 };
