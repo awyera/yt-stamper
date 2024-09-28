@@ -15,7 +15,7 @@ type Story = StoryObj<typeof Stamp>;
 
 export const Primary: Story = {
   render: () => {
-    const [timestamp, setTimestamp] = useState<Timestamp>({ id: nanoid(), time: '00:00', text: 'text' });
+    const [timestamp, setTimestamp] = useState<Timestamp>({ id: nanoid(), time: '00:00:00', text: 'text' });
     return (
       <Stamp
         video={document.createElement('video')}
