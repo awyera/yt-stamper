@@ -88,24 +88,6 @@ export function YTStamper({ timestamps, onChange }: Props) {
     onChange(timestamps.filter((t) => t.id !== timestamp.id));
   }
 
-  // video の高さを更新
-  useEffect(() => {
-    const videoElm = document.querySelector('video');
-    if (!videoElm) return;
-
-    const resizeObserver = new ResizeObserver((entries) => {
-      const entry = entries[0];
-      if (!entry) return;
-      setHeight(`${entry.contentRect.height}px`);
-    });
-
-    resizeObserver.observe(videoElm);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
-
   // タイムスタンプが追加された際に最下部へスクロールする
   useEffect(() => {
     if (shouldScrollToButton && listRef.current) {
@@ -116,16 +98,26 @@ export function YTStamper({ timestamps, onChange }: Props) {
 
   // 500ms 毎に video element を検索し、取得できたら終わる
   useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      // video の高さに合わせる
+      setHeight(`${entry.contentRect.height}px`);
+    });
+
     const interval = setInterval(() => {
       const videoElm = document.querySelector('video');
       if (videoElm) {
         setVideo(videoElm);
         clearInterval(interval);
+
+        resizeObserver.observe(videoElm);
       }
     }, 500);
 
     return () => {
       clearInterval(interval);
+      resizeObserver.disconnect();
     };
   }, []);
 
