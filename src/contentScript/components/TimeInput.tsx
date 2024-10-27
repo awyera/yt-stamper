@@ -5,7 +5,7 @@ import { formatTime, parseTime } from '../lib/time';
 
 interface Props {
   time: Timestamp['time'];
-  onChange: (time: string) => void;
+  onChange: (time: string, isSeek?: boolean) => void;
 }
 
 export function TimeInput({ time, onChange }: Props) {
@@ -24,7 +24,7 @@ export function TimeInput({ time, onChange }: Props) {
       return;
     }
 
-    onChange(formatTime(seconds));
+    onChange(formatTime(seconds), true);
   }
 
   return (

@@ -18,8 +18,8 @@ interface Props {
 }
 
 export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChange, onDelete }: Props) {
-  function handleTimeChange(time: string) {
-    if (timestamp.time !== time) {
+  function handleTimeChange(time: string, isSeek = false) {
+    if (timestamp.time !== time && isSeek) {
       // 時刻が変更されていたときのみ動画を移動
       video.currentTime = parseTime(time);
     }

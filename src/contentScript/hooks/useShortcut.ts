@@ -75,7 +75,6 @@ export function useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip }
   // 保存済みのショートカットを読み込む
   useEffect(() => {
     chrome.storage?.local.get('shortcuts').then((result) => {
-      console.log('result', result.shortcuts);
       if (result.shortcuts) {
         setShortcuts(result.shortcuts);
       }

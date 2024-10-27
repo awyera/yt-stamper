@@ -7,6 +7,10 @@ const ELEMENT_NAME = 'yt-stamper';
 document.addEventListener(
   'keydown',
   (e) => {
+    if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape'].includes(e.key)) {
+      return;
+    }
+
     // target が yt-stamper の場合
     if (e.target instanceof HTMLElement && e.target.nodeName === ELEMENT_NAME.toUpperCase()) {
       const composedPathZero = e.composedPath()[0];

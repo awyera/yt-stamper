@@ -20,8 +20,6 @@ export function Input({ className, value, onChange, ...props }: Props) {
       type="text"
       value={value}
       onChange={handleChange}
-      onKeyDown={(e) => e.stopPropagation()}
-      onKeyUp={(e) => e.stopPropagation()}
     />
   );
 }
