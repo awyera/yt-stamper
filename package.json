@@ -1,6 +1,6 @@
 {
   "name": "yt-stamper",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Easily create timestamps in YouTube videos.",
   "private": true,
   "type": "module",
