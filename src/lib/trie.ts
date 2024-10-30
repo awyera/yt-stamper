@@ -51,7 +51,7 @@ export class Trie {
       if (!node.children.has(char)) {
         node.children.set(char, new TrieNode());
       }
-      // biome-ignore lint/style/noNonNullAssertion: <explanation>
+      // biome-ignore lint/style/noNonNullAssertion: node が存在することは直前の処理で自明
       node = node.children.get(char)!;
     }
     node.isEndOfWord = true;
@@ -75,7 +75,7 @@ export class Trie {
     if (node.isEndOfWord) {
       words = words.concat(Array.from(node.originalWords))
     }
-    node.children.forEach((child, char) => {
+    node.children.forEach((child) => {
       words = words.concat(this._collectAllWords(child));
     });
     return words;
