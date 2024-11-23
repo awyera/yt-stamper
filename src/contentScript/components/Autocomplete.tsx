@@ -19,7 +19,7 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
     onChange(value);
 
     if (trie && value) {
-      setSuggestions(trie.search(value));
+      setSuggestions(trie.search(value).words);
     } else {
       setSuggestions([]);
     }

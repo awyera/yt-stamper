@@ -45,9 +45,9 @@ export async function loadTrieFromLocalStorage(): Promise<Trie> {
   // shortcuts, skipSeconds は不要
   const { shortcuts, skipSeconds, ...timestamps } = data;
 
-  for (const values of Object.values(timestamps)) {
-    for (const value of values) {
-      trie.insert(value.text);
+  for (const id in timestamps) {
+    for (const value of timestamps[id]) {
+      trie.insert(value.text, id);
     }
   }
 

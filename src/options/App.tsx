@@ -1,29 +1,35 @@
-import { Link, Route, Switch } from 'wouter';
+import { useState } from 'react';
+import { Button } from '../components/Button';
+import { TrieProvider } from '../context/TrieContext';
 import { Manage } from './pages/Manage';
 import { Options } from './pages/Options';
 
+type Page = 'index' | 'options';
+
 export function App() {
+  const [currentPage, setCurrentPage] = useState<Page>('index');
+
+  const handleClick = (page: Page) => () => {
+    setCurrentPage(page);
+  };
+
+  const isActive = (page: Page) => page === currentPage;
+
   return (
-    <section>
-      <div className="p-4 text-lg">
-        <Link className={(active) => (active ? 'text-blue-500' : 'text-black')} to="/options.html">
-          options
-        </Link>
-        <span> / </span>
-        <Link className={(active) => (active ? 'text-blue-500' : 'text-black')} to="/manage">
-          manage
-        </Link>
-      </div>
+    <TrieProvider>
+      <section>
+        <div className="p-4 text-lg">
+          <Button variant={isActive('index') ? 'default' : 'white'} inline onClick={handleClick('index')}>
+            manage
+          </Button>
+          <span> / </span>
+          <Button variant={isActive('options') ? 'default' : 'white'} inline onClick={handleClick('options')}>
+            options
+          </Button>
+        </div>
 
-      <Switch>
-        <Route path="/options.html">
-          <Options />
-        </Route>
-
-        <Route path="/manage">
-          <Manage />
-        </Route>
-      </Switch>
-    </section>
+        {currentPage === 'index' ? <Manage /> : currentPage === 'options' ? <Options /> : null}
+      </section>
+    </TrieProvider>
   );
 }
