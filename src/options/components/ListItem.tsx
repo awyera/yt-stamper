@@ -1,7 +1,7 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '../../components/Button';
 import type { Timestamp } from '../../lib/types';
-import { parseTime } from '../../contentScript/lib/time';
+import { parseTime } from '../../content/lib/time';
 import { twMerge } from 'tailwind-merge';
 import { useState } from 'react';
 
