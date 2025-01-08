@@ -26,7 +26,10 @@ export function Manage() {
   const handleDelete = (videoId: string) => async () => {
     if (confirm('削除しますか？')) {
       await removeData(videoId);
-      setAllData(await loadAllData());
+      loadAllData().then((data) => {
+        setAllData(data);
+        setData(data);
+      });
     }
   };
 
