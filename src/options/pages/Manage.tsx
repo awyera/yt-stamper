@@ -43,7 +43,7 @@ export function Manage() {
 
   return (
     <section className="container mx-auto">
-      <input className='border' type="text" onChange={handleChange} />
+      <input className="border" type="text" onChange={handleChange} />
 
       {Object.keys(data).map((key) => (
         <ListItem

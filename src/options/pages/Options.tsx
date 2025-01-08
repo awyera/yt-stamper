@@ -72,7 +72,9 @@ export function Options() {
 
       <div className="mt-4 flex items-center justify-end gap-2">
         {message ? <p className="font-bold text-green-600 text-sm">{message}</p> : null}
-        <Button variant='success' onClick={handleSave}>SAVE</Button>
+        <Button variant="success" onClick={handleSave}>
+          SAVE
+        </Button>
       </div>
     </section>
   );

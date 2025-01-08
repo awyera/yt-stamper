@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof Card>;
 
 export const Primary: Story = {
-  render: () => <Card videoId='AAAA' items={[]} onDelete={() => {}} />,
+  render: () => <Card videoId="AAAA" items={[]} onDelete={() => {}} />,
 };

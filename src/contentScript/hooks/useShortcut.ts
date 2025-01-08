@@ -1,14 +1,14 @@
+import type { Shortcut, Shortcuts } from '../../lib/types';
 import { useEffect, useState } from 'react';
 import { DEFAULT_SHORTCUTS } from '../../lib/const';
-import type { Shortcut, Shortcuts } from '../../lib/types';
 import { useSkipSeconds } from './useSkipSeconds';
 
-interface Props {
+type Props = {
   toggleOpen: () => void;
   addTimestamp: () => void;
   copyToClipboard: () => void;
   skip: (time: number) => void;
-}
+};
 
 // キーに一致するか
 function isKeyMatch(shortcut: Shortcut, e: KeyboardEvent): boolean {

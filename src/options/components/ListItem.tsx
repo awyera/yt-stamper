@@ -1,9 +1,9 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { useState } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { Button } from '../../components/Button';
-import { parseTime } from '../../contentScript/lib/time';
 import type { Timestamp } from '../../lib/types';
+import { parseTime } from '../../contentScript/lib/time';
+import { twMerge } from 'tailwind-merge';
+import { useState } from 'react';
 
 type Props = {
   className?: string;

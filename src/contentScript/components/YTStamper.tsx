@@ -1,16 +1,16 @@
-import { nanoid } from 'nanoid';
-import { useEffect, useRef, useState } from 'react';
-import type { Timestamp } from '../../lib/types';
-import { useShortcuts } from '../hooks/useShortcut';
 import { formatTime, parseTime } from '../lib/time';
-import { assertVideo } from '../lib/video-assert';
+import { useEffect, useRef, useState } from 'react';
 import { Header } from './Header';
 import { Stamp } from './Stamp';
+import type { Timestamp } from '../../lib/types';
+import { assertVideo } from '../lib/video-assert';
+import { nanoid } from 'nanoid';
+import { useShortcuts } from '../hooks/useShortcut';
 
-interface Props {
+type Props = {
   timestamps: Timestamp[];
   onChange: (timestamps: Timestamp[]) => void;
-}
+};
 
 export function YTStamper({ timestamps, onChange }: Props) {
   useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip });
@@ -140,7 +140,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
       />
 
       <div className="grow overflow-y-scroll overscroll-contain" style={{ height: isOpen ? 'auto' : 0 }} ref={listRef}>
-        {timestamps.length
+        {timestamps.length > 0
           ? timestamps.map((timestamp) => (
               <Stamp
                 className="my-2 border-t border-t-gray-500 border-solid px-1 pt-2 first:mt-0 first:border-t-0"

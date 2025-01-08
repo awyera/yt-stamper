@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:host, :root {
+:host,
+:root {
   --srem: 16px;
 }

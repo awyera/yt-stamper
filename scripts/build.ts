@@ -1,5 +1,5 @@
-import { rm } from 'node:fs/promises';
 import Bun, { $ } from 'bun';
+import { rm } from 'node:fs/promises';
 
 const OUTDIR = './out';
 

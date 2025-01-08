@@ -1,12 +1,12 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { formatTime, parseTime } from '../lib/time';
 import type { ChangeEvent } from 'react';
 import type { Timestamp } from '../../lib/types';
-import { formatTime, parseTime } from '../lib/time';
 
-interface Props {
+type Props = {
   time: Timestamp['time'];
   onChange: (time: string, isSeek?: boolean) => void;
-}
+};
 
 export function TimeInput({ time, onChange }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {

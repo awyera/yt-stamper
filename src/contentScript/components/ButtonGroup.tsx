@@ -1,11 +1,11 @@
 import { Children, type ComponentProps, type FunctionComponentElement, cloneElement } from 'react';
+import type { Button } from '../../components/Button';
 import { twMerge } from 'tailwind-merge';
-import type { Button } from './Button';
 
-interface Props {
+type Props = {
   className?: string;
   children: FunctionComponentElement<ComponentProps<typeof Button>>[];
-}
+};
 
 export function ButtonGroup({ className, children }: Props) {
   return (

@@ -1,7 +1,7 @@
-import type React from "react";
-import { createContext, useContext, useEffect, useState } from "react";
-import { loadTrieFromLocalStorage } from "../lib/storage";
-import type { Trie } from "../lib/trie";
+import type React from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { loadTrieFromLocalStorage } from '../lib/storage';
+import type { Trie } from '../lib/trie';
 
 const TrieContext = createContext<Trie | null>(null);
 

@@ -1,7 +1,7 @@
 import { type ChangeEvent, useId } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props<T extends string | number> {
+type Props<T extends string | number> = {
   className?: string;
   inputClassName?: string;
   label: string;
@@ -9,7 +9,7 @@ interface Props<T extends string | number> {
   type: 'text' | 'number';
   value: T;
   onChange: (name: string, value: T) => void;
-}
+};
 
 export function Form<T extends string | number>({
   className,

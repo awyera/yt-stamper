@@ -1,10 +1,10 @@
 import type { ChangeEvent, ComponentProps, KeyboardEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props extends Omit<ComponentProps<'input'>, 'value' | 'onChange'> {
+type Props = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
   value: string;
   onChange: (value: string) => void;
-}
+};
 
 export function Input({ className, value, onChange, onKeyDown, onKeyUp, ...props }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {

@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
-import { nanoid } from 'nanoid';
-import { useState } from 'react';
 import type { Timestamp } from '../../lib/types';
 import { YTStamper } from './YTStamper';
+import { nanoid } from 'nanoid';
+import { useState } from 'react';
 
 const meta: Meta<typeof YTStamper> = {
   component: YTStamper,
