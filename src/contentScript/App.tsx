@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { TrieProvider } from "../context/TrieContext";
 import { loadData, saveData } from '../lib/storage';
+import { useEffect, useState } from 'react';
 import type { Timestamp } from '../lib/types';
+import { TrieProvider } from '../context/TrieContext';
 import { YTStamper } from './components/YTStamper';
 import { useVideoId } from './hooks/useVideoId';
 
@@ -17,8 +17,8 @@ export function App() {
   }
 
   // 動画が変更されたとき拡張機能ストレージから timestamps を読み込む
-  useEffect(() => {
-    loadData(videoId).then((data) => {
+  useEffect((): void => {
+    loadData(videoId).then((data): void => {
       setTimestamps(data);
     });
   }, [videoId]);

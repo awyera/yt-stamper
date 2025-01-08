@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof ListItem>;
 
 export const Primary: Story = {
-  render: () => <ListItem videoId='AAAA' items={[]} onDelete={() => {}} />,
+  render: () => <ListItem videoId="AAAA" items={[]} onDelete={() => {}} />,
 };

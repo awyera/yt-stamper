@@ -1,14 +1,14 @@
 import { type ComponentProps, type KeyboardEvent, type MouseEvent, useState } from 'react';
+import { Input } from './Input';
 import { twMerge } from 'tailwind-merge';
 import { useTrie } from '../../context/TrieContext';
-import { Input } from './Input';
 
-interface Props {
+type Props = {
   className?: string;
   value: string;
   inputProps?: ComponentProps<typeof Input>;
   onChange: (value: string) => void;
-}
+};
 
 export function Autocomplete({ className, value, inputProps, onChange }: Props) {
   const trie = useTrie();
@@ -34,12 +34,10 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
       event.preventDefault();
       setCurrentIndex((i) => (i > 0 ? i - 1 : suggestions.length - 1));
     }
-    if (event.key === 'Enter') {
-      if (currentIndex >= 0 && currentIndex < suggestions.length) {
-        onChange(suggestions[currentIndex]);
-        setSuggestions([]);
-        setCurrentIndex(-1);
-      }
+    if (event.key === 'Enter' && currentIndex >= 0 && currentIndex < suggestions.length) {
+      onChange(suggestions[currentIndex]);
+      setSuggestions([]);
+      setCurrentIndex(-1);
     }
     if (event.key === 'Escape') {
       setSuggestions([]);

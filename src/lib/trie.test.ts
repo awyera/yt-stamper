@@ -4,7 +4,7 @@ import { Trie } from './trie';
 describe('Trie', () => {
   it('should serialize and deserialize correctly', () => {
     const trie = new Trie();
-    const words = ["example", "examine", "excavate", "excellent"];
+    const words = ['example', 'examine', 'excavate', 'excellent'];
     for (const word of words) {
       trie.insert(word, '');
     }
@@ -14,12 +14,12 @@ describe('Trie', () => {
 
     // Check that the restored Trie contains the same words
     for (const word of words) {
-      const results = restoredTrie.search(word.slice(0, 3));  // Search using first 3 letters
+      const results = restoredTrie.search(word.slice(0, 3)); // Search using first 3 letters
       expect(results.words).toContain(word);
     }
 
     // Check a prefix that doesn't exist
-    const results = restoredTrie.search("xyz");
+    const results = restoredTrie.search('xyz');
     expect(results.words).toEqual([]);
   });
 });

@@ -1,13 +1,13 @@
 import { Play, Timer, Trash } from 'lucide-react';
-import { twMerge } from 'tailwind-merge';
-import { Button } from '../../components/Button';
-import type { Timestamp } from '../../lib/types';
 import { formatTime, parseTime } from '../lib/time';
 import { Autocomplete } from './Autocomplete';
+import { Button } from '../../components/Button';
 import { ButtonGroup } from './ButtonGroup';
 import { TimeInput } from './TimeInput';
+import type { Timestamp } from '../../lib/types';
+import { twMerge } from 'tailwind-merge';
 
-interface Props {
+type Props = {
   className?: string;
   video: HTMLVideoElement;
   timestamp: Timestamp;
@@ -15,7 +15,7 @@ interface Props {
   seek: (seconds: number) => void;
   onChange: (timestamp: Timestamp) => void;
   onDelete: (timestamp: Timestamp) => void;
-}
+};
 
 export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChange, onDelete }: Props) {
   function handleTimeChange(time: string, isSeek = false) {

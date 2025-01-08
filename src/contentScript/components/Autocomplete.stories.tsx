@@ -1,8 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-
-import { useState } from "react";
-import { TrieProvider } from "../../context/TrieContext";
-import { Autocomplete } from "./Autocomplete";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Autocomplete } from './Autocomplete';
+import { TrieProvider } from '../../context/TrieContext';
+import { useState } from 'react';
 
 const meta: Meta<typeof Autocomplete> = {
   component: Autocomplete,
@@ -23,7 +22,7 @@ type Story = StoryObj<typeof Autocomplete>;
 
 export const Primary: Story = {
   render: () => {
-    const [value, setValue] = useState("text");
+    const [value, setValue] = useState('text');
     return <Autocomplete value={value} onChange={setValue} />;
   },
 };

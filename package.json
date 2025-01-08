@@ -13,7 +13,8 @@
     "copy": "bun --watch scripts/copy.ts",
     "clean": "rm -rf ./out",
     "storybook": "storybook dev -p 9009 --no-open",
-    "check": "biome check --write"
+    "format": "prettier --write .",
+    "lint": "oxlint --fix"
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.6.0",
@@ -25,7 +26,6 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.1",
     "@storybook/addon-a11y": "^8.1.9",
     "@storybook/addon-essentials": "^8.1.9",
     "@storybook/react": "^8.1.9",
@@ -35,7 +35,8 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "concurrently": "^8.2.2",
-    "prettier": "^3.3.2",
+    "oxlint": "^0.15.5",
+    "prettier": "^3.4.2",
     "storybook": "^8.1.9",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.4.5"

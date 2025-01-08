@@ -11,5 +11,5 @@ export default meta;
 type Story = StoryObj<typeof Form>;
 
 export const Primary: Story = {
-  render: () => <Form label="Short forward (sec)" name="shortForward" value={10} type='number' onChange={() => {}} />,
+  render: () => <Form label="Short forward (sec)" name="shortForward" value={10} type="number" onChange={() => {}} />,
 };

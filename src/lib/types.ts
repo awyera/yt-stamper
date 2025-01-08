@@ -1,24 +1,24 @@
-export interface Timestamp {
+export type Timestamp = {
   id: string;
   time: string;
   text: string;
-}
+};
 
-export interface SkipSeconds {
+export type SkipSeconds = {
   longBackward: number;
   shortBackward: number;
   shortForward: number;
   longForward: number;
-}
+};
 
-export interface Shortcut {
+export type Shortcut = {
   key: string;
   ctrl?: boolean;
   shift?: boolean;
   alt?: boolean;
-}
+};
 
-export interface Shortcuts {
+export type Shortcuts = {
   toggleOpen: Shortcut;
   addTimestamp: Shortcut;
   copyClipboard: Shortcut;
@@ -26,4 +26,4 @@ export interface Shortcuts {
   shortBackward: Shortcut;
   shortForward: Shortcut;
   longForward: Shortcut;
-}
+};

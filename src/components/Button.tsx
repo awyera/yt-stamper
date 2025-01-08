@@ -1,11 +1,11 @@
 import type { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-interface Props extends ComponentProps<'button'> {
+type Props = ComponentProps<'button'> & {
   variant?: 'default' | 'success' | 'danger' | 'white';
   circle?: boolean;
   inline?: boolean;
-}
+};
 
 export function Button({ className, variant = 'default', circle, inline, disabled, ...props }: Props) {
   return (

@@ -3,22 +3,12 @@
   "name": "YTStamper",
   "version": "0.6.1",
   "description": "Easily create timestamps in YouTube videos.",
-  "permissions": [
-    "webNavigation",
-    "scripting",
-    "storage"
-  ],
-  "host_permissions": [
-    "*://*.youtube.com/*"
-  ],
+  "permissions": ["webNavigation", "scripting", "storage"],
+  "host_permissions": ["*://*.youtube.com/*"],
   "web_accessible_resources": [
     {
-      "resources": [
-        "index.css"
-      ],
-      "matches": [
-        "*://*.youtube.com/*"
-      ]
+      "resources": ["index.css"],
+      "matches": ["*://*.youtube.com/*"]
     }
   ],
   "background": {
@@ -30,13 +20,8 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "*://*.youtube.com/watch*",
-        "*://*.youtube.com/live/*"
-      ],
-      "js": [
-        "contentScript.js"
-      ],
+      "matches": ["*://*.youtube.com/watch*", "*://*.youtube.com/live/*"],
+      "js": ["contentScript.js"],
       "run_at": "document_idle"
     }
   ]

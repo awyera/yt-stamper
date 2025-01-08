@@ -1,9 +1,9 @@
-interface SerializedTrieNode {
+type SerializedTrieNode = {
   children: { [key: string]: SerializedTrieNode };
   isEndOfWord: boolean;
   originalWords?: string[];
   ids?: string[];
-}
+};
 
 class TrieNode {
   children: Map<string, TrieNode>;
@@ -64,7 +64,7 @@ export class Trie {
     node.originalWords.add(word);
   }
 
-  search(prefix: string): { words: string[], ids: string[] } {
+  search(prefix: string): { words: string[]; ids: string[] } {
     let node = this.root;
     for (const char of prefix.toLowerCase()) {
       const nextNode = node.children.get(char);
@@ -73,13 +73,13 @@ export class Trie {
       }
       node = nextNode;
     }
-    return { words: this._collectAllWords(node), ids: Array.from(node.ids) }
+    return { words: this._collectAllWords(node), ids: Array.from(node.ids) };
   }
 
   private _collectAllWords(node: TrieNode): string[] {
     let words: string[] = [];
     if (node.isEndOfWord) {
-      words = words.concat(Array.from(node.originalWords))
+      words = words.concat(Array.from(node.originalWords));
     }
     node.children.forEach((child) => {
       words = words.concat(this._collectAllWords(child));

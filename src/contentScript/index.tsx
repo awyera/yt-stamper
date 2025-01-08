@@ -1,6 +1,6 @@
 import '@webcomponents/custom-elements';
-import { createRoot } from 'react-dom/client';
 import { App } from './App';
+import { createRoot } from 'react-dom/client';
 
 const ELEMENT_NAME = 'yt-stamper';
 

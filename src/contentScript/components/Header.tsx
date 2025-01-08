@@ -11,10 +11,10 @@ import {
   Plus,
 } from 'lucide-react';
 import { Button } from '../../components/Button';
-import { useSkipSeconds } from '../hooks/useSkipSeconds';
 import { ButtonGroup } from './ButtonGroup';
+import { useSkipSeconds } from '../hooks/useSkipSeconds';
 
-interface Props {
+type Props = {
   isOpen: boolean;
   isDeleteMode: boolean;
   skip: (time: number) => void;
@@ -23,7 +23,7 @@ interface Props {
   onClipboardCopy: () => void;
   onAddTimestamp: () => void;
   onClick: () => void;
-}
+};
 
 export function Header({
   isOpen,
