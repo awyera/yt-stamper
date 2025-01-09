@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "bun run concurrently \"npm:copy\" \"npm:build:dev:*\"",
     "build:prod": "bun scripts/build.ts",
-    "build:dev:js": "bun build --entrypoints ./src/contentScript/index.tsx ./src/background/index.ts ./src/options/index.tsx --root ./src --outdir ./out --entry-naming '[dir].[ext]' --watch",
+    "build:dev:js": "bun build --entrypoints ./src/content/index.tsx ./src/background/index.ts ./src/options/index.tsx --root ./src --outdir ./out --entry-naming '[dir].[ext]' --watch",
     "build:dev:css": "tailwindcss -i ./src/index.css -o ./out/index.css --watch",
     "copy": "bun --watch scripts/copy.ts",
     "clean": "rm -rf ./out",
