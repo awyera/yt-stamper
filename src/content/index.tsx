@@ -46,13 +46,18 @@ class YTStamperElement extends HTMLElement {
 const observer = new MutationObserver((_mutations, obs) => {
   const container = document.querySelector('#secondary-inner');
   if (container) {
-    if (!customElements.get(ELEMENT_NAME)) {
-      customElements.define(ELEMENT_NAME, YTStamperElement);
-    }
-    const ytStamperElement = document.createElement(ELEMENT_NAME);
+    const chat = document.querySelector('#chat');
+    const playlist = document.querySelector('#playlist');
+    // chat または playlist がレンダリングされたあとに yt-stamper を追加する
+    if (chat || playlist?.getAttribute('hidden') === null) {
+      if (!customElements.get(ELEMENT_NAME)) {
+        customElements.define(ELEMENT_NAME, YTStamperElement);
+      }
+      const ytStamperElement = document.createElement(ELEMENT_NAME);
 
-    container.prepend(ytStamperElement);
-    obs.disconnect();
+      container.prepend(ytStamperElement);
+      obs.disconnect();
+    }
   }
 });
 
