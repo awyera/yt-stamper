@@ -127,7 +127,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
   }
 
   return (
-    <div className="flex flex-col rounded border border-gray-500 border-solid" style={{ maxHeight: height }}>
+    <div className="flex flex-col rounded-sm border border-gray-500 border-solid" style={{ maxHeight: height }}>
       <Header
         isOpen={isOpen}
         isDeleteMode={isDeleteMode}

@@ -1,6 +1,52 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@theme inline {
+  --spacing-*: initial;
+  --spacing: calc(0.25 * var(--srem));
+
+  --text-*: initial;
+  --text-xs: calc(0.75 * var(--srem));
+  --text-sm: calc(0.875 * var(--srem));
+  --text-base: calc(1 * var(--srem));
+  --text-lg: calc(1.125 * var(--srem));
+  --text-xl: calc(1.25 * var(--srem));
+  --text-2xl: calc(1.5 * var(--srem));
+  --text-3xl: calc(1.875 * var(--srem));
+  --text-4xl: calc(2.25 * var(--srem));
+  --text-5xl: calc(3 * var(--srem));
+  --text-6xl: calc(3.75 * var(--srem));
+  --text-7xl: calc(4.5 * var(--srem));
+  --text-8xl: calc(6 * var(--srem));
+  --text-9xl: calc(8 * var(--srem));
+
+  --radius-*: initial;
+  --radius-xs: calc(0.125 * var(--srem));
+  --radius-sm: calc(0.25 * var(--srem));
+  --radius-md: calc(0.375 * var(--srem));
+  --radius-lg: calc(0.5 * var(--srem));
+  --radius-xl: calc(0.75 * var(--srem));
+  --radius-2xl: calc(1 * var(--srem));
+  --radius-3xl: calc(1.5 * var(--srem));
+  --radius-4xl: calc(2 * var(--srem));
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 :host,
 :root {

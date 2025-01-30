@@ -28,9 +28,9 @@ export function TimeInput({ time, onChange }: Props) {
   }
 
   return (
-    <div className="inline-flex items-stretch justify-start overflow-clip rounded border border-gray-500">
+    <div className="inline-flex items-stretch justify-start overflow-clip rounded-sm border border-gray-500">
       <input
-        className="w-20 px-1 py-1 text-base leading-normal"
+        className="w-20 px-1 py-1 text-base leading-normal bg-white"
         type="text"
         value={time}
         onKeyDown={(e) => e.stopPropagation()}

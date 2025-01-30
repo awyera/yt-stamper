@@ -11,7 +11,7 @@ export function Button({ className, variant = 'default', circle, inline, disable
   return (
     <button
       className={twMerge(
-        'flex cursor-pointer items-center justify-center rounded bg-gray-600 px-2 py-1 text-sm text-white leading-none active:bg-gray-900 hover:bg-gray-700',
+        'flex cursor-pointer items-center justify-center rounded-sm bg-gray-600 px-2 py-1 text-sm text-white leading-none active:bg-gray-900 hover:bg-gray-700',
         circle && 'rounded-full p-1 text-base',
         inline && 'inline-flex',
         disabled && 'pointer-events-none bg-gray-300 text-gray-500 active:bg-gray-300 hover:bg-gray-300',

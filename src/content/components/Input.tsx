@@ -26,7 +26,10 @@ export function Input({ className, value, onChange, onKeyDown, onKeyUp, ...props
   return (
     <input
       {...props}
-      className={twMerge('w-full rounded border border-gray-500 px-1 py-1 text-base leading-normal', className)}
+      className={twMerge(
+        'w-full rounded-sm border bg-white border-gray-500 px-1 py-1 text-base leading-normal',
+        className,
+      )}
       type="text"
       value={value}
       onChange={handleChange}
