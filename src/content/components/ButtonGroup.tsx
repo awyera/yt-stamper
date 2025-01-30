@@ -14,7 +14,7 @@ export function ButtonGroup({ className, children }: Props) {
         cloneElement(child, {
           ...children[i].props,
           className: twMerge(
-            'first:rounded-l last:rounded-r rounded-none border-l-2 border-l-gray-500 hover:border-l-gray-500 active:border-l-gray-500 first:border-l-0',
+            'first:rounded-l-sm last:rounded-r-sm rounded-none border-l-2 border-l-gray-500 hover:border-l-gray-500 active:border-l-gray-500 first:border-l-0',
             children[i].props.className,
           ),
         }),

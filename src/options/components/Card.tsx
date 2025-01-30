@@ -13,7 +13,7 @@ export function Card({ className, videoId, items, onDelete }: Props) {
   const imageSrc = new URL(`/vi/${videoId}/mqdefault.jpg`, 'https://i.ytimg.com').toString();
 
   return (
-    <div className={twMerge('w-80 overflow-hidden rounded shadow-md', className)}>
+    <div className={twMerge('w-80 overflow-hidden rounded-sm shadow-md', className)}>
       <div>
         <a href={`https://www.youtube.com/watch?v=${videoId}`} target="_blank" rel="noreferrer noopener">
           <img className="h-[180px] w-[320px] object-cover" src={imageSrc} width={320} height={180} alt={videoId} />
