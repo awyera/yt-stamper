@@ -43,63 +43,55 @@ class YTStamperElement extends HTMLElement {
   }
 }
 
-let currentId = '';
-
-const handleHistoryChange = (message: { url: string }) => {
-  if (currentId !== message.url) {
-    currentId = message.url;
-
-    const container = document.querySelector('#secondary-inner');
-    const ytStamperElement = document.querySelector(ELEMENT_NAME);
-    if (container && ytStamperElement) {
-      container.removeChild(ytStamperElement);
-    }
-
-    const observer = new MutationObserver((_mutations, obs) => {
-      const container = document.querySelector('#secondary-inner');
-      if (container) {
-        // yt-stamper が既に存在する場合は何もしない
-        if (document.querySelector(ELEMENT_NAME)) {
-          obs.disconnect();
-          return;
-        }
-
-        const chat = document.querySelector('#chat');
-        const playlist = document.querySelector('#playlist');
-        // chat または playlist がレンダリングされたあとに yt-stamper を追加する
-        if (chat || playlist?.getAttribute('hidden') === null) {
-          const ytStamperElement = document.createElement(ELEMENT_NAME);
-          container.prepend(ytStamperElement);
-          obs.disconnect();
-          clearTimeout(timerId);
-        }
-      }
-    });
-
-    const timerId = setTimeout(() => {
-      const container = document.querySelector('#secondary-inner');
-      if (container) {
-        // yt-stamper が既に存在する場合は何もしない
-        if (document.querySelector(ELEMENT_NAME)) {
-          observer.disconnect();
-          clearTimeout(timerId);
-          return;
-        }
-
-        const ytStamperElement = document.createElement(ELEMENT_NAME);
-        container.prepend(ytStamperElement);
-        observer.disconnect();
-      }
-    }, 1000);
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-  }
-};
-
 customElements.define(ELEMENT_NAME, YTStamperElement);
 
-chrome.runtime.onMessage.addListener(handleHistoryChange);
-handleHistoryChange({ url: window.location.href });
+// yt-navigate-start 時に yt-stamper を削除する
+document.addEventListener('yt-navigate-start', () => {
+  const container = document.querySelector('#secondary-inner');
+  const ytStamperElement = document.querySelector(ELEMENT_NAME);
+  if (container && ytStamperElement) {
+    container.removeChild(ytStamperElement);
+  }
+});
+
+// yt-navigate-finish 時に yt-stamper を追加する
+document.addEventListener('yt-navigate-finish', () => {
+  const observer = new MutationObserver((_mutations, obs) => {
+    const container = document.querySelector('#secondary-inner');
+    if (container) {
+      // yt-stamper が既に存在する場合は削除
+      const ytStamperElement = document.querySelector(ELEMENT_NAME);
+      if (ytStamperElement) {
+        container.removeChild(ytStamperElement);
+      }
+
+      const chat = document.querySelector('#chat');
+      const playlist = document.querySelector('#playlist');
+      // chat または playlist がレンダリングされたあとに yt-stamper を追加する
+      if (chat || playlist?.getAttribute('hidden') === null) {
+        obs.disconnect();
+        clearTimeout(timerId);
+        container.prepend(document.createElement(ELEMENT_NAME));
+      }
+    }
+  });
+
+  const timerId = setTimeout(() => {
+    observer.disconnect();
+    const container = document.querySelector('#secondary-inner');
+    if (container) {
+      // yt-stamper が既に存在する場合は削除
+      const ytStamperElement = document.querySelector(ELEMENT_NAME);
+      if (ytStamperElement) {
+        container.removeChild(ytStamperElement);
+      }
+
+      container.prepend(document.createElement(ELEMENT_NAME));
+    }
+  }, 1000);
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+});
