@@ -9,7 +9,6 @@ type Props = Omit<ComponentProps<'input'>, 'value' | 'onChange'> & {
 export function Input({ className, value, onChange, onKeyDown, onKeyUp, ...props }: Props) {
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const value = e.currentTarget.value;
-
     onChange(value);
   }
 

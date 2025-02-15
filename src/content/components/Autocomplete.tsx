@@ -30,7 +30,9 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
   }
 
   function handleKeydown(event: KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'ArrowDown') {
+    if (!suggestions.length) return;
+
+    if (event.key === 'ArrowDown' || event.key === 'Tab') {
       event.preventDefault();
       setCurrentIndex((i) => (i < suggestions.length - 1 ? i + 1 : 0));
     }
@@ -59,26 +61,16 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
 
   const root = thisRef.current?.getRootNode() as ShadowRoot | null;
   useEffect(() => {
-    console.log('debug:root', root);
-    console.log('debug:root instanceof ShadowRoot', root instanceof ShadowRoot);
-    console.log('debug:suggestionsRef.current', suggestionsRef.current);
+    if (!root || !(root instanceof ShadowRoot) || !suggestionsRef.current || !suggestions.length) return;
 
-    if (!root || !(root instanceof ShadowRoot) || !suggestionsRef.current) return;
+    const top = thisRef.current?.offsetLeft ?? 0;
+    const left = thisRef.current?.offsetTop ?? 0;
 
-    const rootHeight = root.host.getBoundingClientRect().height;
-    console.log('debug:root.host', root.host);
-
-    const offsetX = thisRef.current?.offsetLeft ?? 0;
-    const offsetY = thisRef.current?.offsetTop ?? 0;
     const width = thisRef.current?.offsetWidth ?? 0;
+    const height = thisRef.current?.offsetHeight ?? 0;
 
-    console.log('debug:rootHeight', rootHeight);
-    console.log('debug:offsetX', offsetX);
-    console.log('debug:offsetY', offsetY);
-    console.log('debug:width', width);
-
-    suggestionsRef.current.style.top = `${-rootHeight + offsetY + 8}px`;
-    suggestionsRef.current.style.left = `${offsetX}px`;
+    suggestionsRef.current.style.top = `${left + height}px`;
+    suggestionsRef.current.style.left = `${top}px`;
     suggestionsRef.current.style.width = `${width}px`;
   }, [root, suggestions.length]);
 
@@ -87,7 +79,7 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
       <Input {...inputProps} value={value} onChange={handleChange} onKeyDown={handleKeydown} />
       {suggestions.length && root
         ? createPortal(
-            <ul className="relative z-999 bg-white shadow-md" ref={suggestionsRef}>
+            <ul className="absolute z-999 bg-white shadow-md" ref={suggestionsRef}>
               {suggestions.map((suggestion, i) => (
                 <li
                   className={twMerge('cursor-pointer hover:bg-gray-300', currentIndex === i && 'bg-gray-400')}
