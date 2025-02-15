@@ -20,25 +20,25 @@
     "@webcomponents/custom-elements": "^1.6.0",
     "clsx": "^2.1.1",
     "lucide-react": "^0.372.0",
-    "nanoid": "^5.0.7",
+    "nanoid": "^5.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "^8.1.9",
-    "@storybook/addon-essentials": "^8.1.9",
-    "@storybook/react": "^8.1.9",
-    "@storybook/react-vite": "^8.1.9",
-    "@types/bun": "^1.1.4",
+    "@storybook/addon-a11y": "^8.5.6",
+    "@storybook/addon-essentials": "^8.5.6",
+    "@storybook/react": "^8.5.6",
+    "@storybook/react-vite": "^8.5.6",
+    "@types/bun": "^1.2.2",
     "@types/chrome": "^0.0.266",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "concurrently": "^8.2.2",
-    "oxlint": "^0.15.5",
-    "prettier": "^3.4.2",
-    "storybook": "^8.1.9",
-    "tailwindcss": "^4.0.0",
-    "typescript": "^5.4.5"
+    "oxlint": "^0.15.10",
+    "prettier": "^3.5.1",
+    "storybook": "^8.5.6",
+    "tailwindcss": "^4.0.6",
+    "typescript": "^5.7.3"
   }
 }

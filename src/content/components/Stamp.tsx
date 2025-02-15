@@ -46,7 +46,7 @@ export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChang
     <div className={twMerge('flex items-center gap-1', className)}>
       <TimeInput time={timestamp.time} onChange={handleTimeChange} />
 
-      <Autocomplete className="w-20 grow" value={timestamp.text} onChange={handleTextChange} />
+      <Autocomplete className="grow" value={timestamp.text} onChange={handleTextChange} />
 
       {isDeleteMode ? (
         <Button className="text-base" variant="danger" title="削除" tabIndex={-1} onClick={handleDelete}>

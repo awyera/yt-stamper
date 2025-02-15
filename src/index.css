@@ -51,4 +51,13 @@
 :host,
 :root {
   --srem: 16px;
+
+  --tw-border-style: solid;
+  --tw-shadow: 0 0 #0000;
+  --tw-inset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-inset-ring-shadow: 0 0 #0000;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-offset-shadow: 0 0 #0000;
 }
