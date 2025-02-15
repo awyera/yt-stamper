@@ -63,14 +63,14 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
   useEffect(() => {
     if (!root || !(root instanceof ShadowRoot) || !suggestionsRef.current || !suggestions.length) return;
 
-    const top = thisRef.current?.offsetLeft ?? 0;
-    const left = thisRef.current?.offsetTop ?? 0;
+    const top = thisRef.current?.offsetTop ?? 0;
+    const left = thisRef.current?.offsetLeft ?? 0;
 
     const width = thisRef.current?.offsetWidth ?? 0;
     const height = thisRef.current?.offsetHeight ?? 0;
 
-    suggestionsRef.current.style.top = `${left + height}px`;
-    suggestionsRef.current.style.left = `${top}px`;
+    suggestionsRef.current.style.top = `${top + height}px`;
+    suggestionsRef.current.style.left = `${left}px`;
     suggestionsRef.current.style.width = `${width}px`;
   }, [root, suggestions.length]);
 
