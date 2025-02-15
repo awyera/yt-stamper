@@ -1,7 +1,8 @@
-import { type ComponentProps, type KeyboardEvent, type MouseEvent, useState } from 'react';
-import { Input } from './Input';
+import { type ComponentProps, type KeyboardEvent, type MouseEvent, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { twMerge } from 'tailwind-merge';
 import { useTrie } from '../../context/TrieContext';
+import { Input } from './Input';
 
 type Props = {
   className?: string;
@@ -14,6 +15,9 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
   const trie = useTrie();
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
+
+  const thisRef = useRef<HTMLInputElement>(null);
+  const suggestionsRef = useRef<HTMLUListElement>(null);
 
   function handleChange(value: string) {
     onChange(value);
@@ -53,23 +57,51 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
     }
   }
 
+  const root = thisRef.current?.getRootNode() as ShadowRoot | null;
+  useEffect(() => {
+    console.log('debug:root', root);
+    console.log('debug:root instanceof ShadowRoot', root instanceof ShadowRoot);
+    console.log('debug:suggestionsRef.current', suggestionsRef.current);
+
+    if (!root || !(root instanceof ShadowRoot) || !suggestionsRef.current) return;
+
+    const rootHeight = root.host.getBoundingClientRect().height;
+    console.log('debug:root.host', root.host);
+
+    const offsetX = thisRef.current?.offsetLeft ?? 0;
+    const offsetY = thisRef.current?.offsetTop ?? 0;
+    const width = thisRef.current?.offsetWidth ?? 0;
+
+    console.log('debug:rootHeight', rootHeight);
+    console.log('debug:offsetX', offsetX);
+    console.log('debug:offsetY', offsetY);
+    console.log('debug:width', width);
+
+    suggestionsRef.current.style.top = `${-rootHeight + offsetY + 8}px`;
+    suggestionsRef.current.style.left = `${offsetX}px`;
+    suggestionsRef.current.style.width = `${width}px`;
+  }, [root, suggestions.length]);
+
   return (
-    <div className={twMerge('relative w-full', className)}>
+    <div className={twMerge('w-full', className)} ref={thisRef}>
       <Input {...inputProps} value={value} onChange={handleChange} onKeyDown={handleKeydown} />
-      {suggestions ? (
-        <ul className="absolute right-0 left-0 z-10 bg-white shadow-md">
-          {suggestions.map((suggestion, i) => (
-            <li
-              className={twMerge('cursor-pointer hover:bg-gray-300', currentIndex === i && 'bg-gray-400')}
-              key={suggestion}
-            >
-              <button className="w-full text-left" title={suggestion} type="button" onClick={handleSelect}>
-                <span className="line-clamp-2 text-base leading-normal">{suggestion}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : null}
+      {suggestions.length && root
+        ? createPortal(
+            <ul className="relative z-999 bg-white shadow-md" ref={suggestionsRef}>
+              {suggestions.map((suggestion, i) => (
+                <li
+                  className={twMerge('cursor-pointer hover:bg-gray-300', currentIndex === i && 'bg-gray-400')}
+                  key={suggestion}
+                >
+                  <button className="w-full text-left" title={suggestion} type="button" onClick={handleSelect}>
+                    <span className="line-clamp-2 text-base leading-normal">{suggestion}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>,
+            root,
+          )
+        : null}
     </div>
   );
 }
