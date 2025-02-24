@@ -74,9 +74,14 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
     suggestionsRef.current.style.width = `${width}px`;
   }, [root, suggestions.length]);
 
+  function handleBlur() {
+    setSuggestions([]);
+    setCurrentIndex(-1);
+  }
+
   return (
     <div className={twMerge('w-full', className)} ref={thisRef}>
-      <Input {...inputProps} value={value} onChange={handleChange} onKeyDown={handleKeydown} />
+      <Input {...inputProps} value={value} onChange={handleChange} onKeyDown={handleKeydown} onBlur={handleBlur} />
       {suggestions.length && root
         ? createPortal(
             <ul className="absolute z-999 bg-white shadow-md" ref={suggestionsRef}>
