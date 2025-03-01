@@ -1,13 +1,13 @@
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { useTrie } from '../../context/TrieContext';
-import { loadAllVideoTimpstamps, removeData } from '../../lib/storage';
+import { loadAllVideoTimestamps, removeData } from '../../lib/storage';
 import type { StorageData } from '../../lib/types';
 import { ListItem } from '../components/ListItem';
 
 export function Manage() {
   const trie = useTrie();
-  const [allData, setAllData] = useState<StorageData['videoTimestmaps']>({});
-  const [data, setData] = useState<StorageData['videoTimestmaps']>({});
+  const [allData, setAllData] = useState<StorageData['videoTimestamps']>({});
+  const [data, setData] = useState<StorageData['videoTimestamps']>({});
 
   const sortedData = Object.values(data)
     .map((d) => ({ ...d, videoDetails: { ...d.videoDetails, publishedAt: new Date(d.videoDetails.publishedAt) } }))
@@ -24,7 +24,7 @@ export function Manage() {
     const value = event.currentTarget.value;
     if (trie && value) {
       const result = trie.search(value);
-      const filtered = result.videoIds.reduce<StorageData['videoTimestmaps']>((filtered, id) => {
+      const filtered = result.videoIds.reduce<StorageData['videoTimestamps']>((filtered, id) => {
         filtered[id] = allData[id];
         return filtered;
       }, {});
@@ -37,7 +37,7 @@ export function Manage() {
   const handleDelete = async (videoId: string) => {
     if (confirm('削除しますか？')) {
       await removeData(videoId);
-      loadAllVideoTimpstamps().then((data) => {
+      loadAllVideoTimestamps().then((data) => {
         setAllData(data);
         setData(data);
       });
@@ -45,7 +45,7 @@ export function Manage() {
   };
 
   useEffect(() => {
-    loadAllVideoTimpstamps().then((data) => {
+    loadAllVideoTimestamps().then((data) => {
       setAllData(data);
       setData(data);
     });

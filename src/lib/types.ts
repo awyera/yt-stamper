@@ -13,15 +13,15 @@ export type Timestamp = {
   text: string;
 };
 
-export type VideoTimpstamps = {
+export type VideoTimestamps = {
   list: Timestamp[]
   videoDetails: VideoDetails
 }
 
 export type StorageData = {
   skipSeconds: SkipSeconds;
-  videoTimestmaps: {
-    [videoId: string]: VideoTimpstamps
+  videoTimestamps: {
+    [videoId: string]: VideoTimestamps;
   };
 }
 

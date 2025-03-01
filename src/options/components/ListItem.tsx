@@ -4,13 +4,13 @@ import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from '../../components/Button';
 import { parseTime } from '../../content/lib/time';
-import type { VideoTimpstamps } from '../../lib/types';
+import type { VideoTimestamps } from '../../lib/types';
 
 type Props = {
   className?: string;
   videoId: string;
-  videoTimestamps: Omit<VideoTimpstamps, 'videoDetails'> & {
-    videoDetails: Omit<VideoTimpstamps['videoDetails'], 'publishedAt'> & { publishedAt: Date };
+  videoTimestamps: Omit<VideoTimestamps, 'videoDetails'> & {
+    videoDetails: Omit<VideoTimestamps['videoDetails'], 'publishedAt'> & { publishedAt: Date };
   };
   onDelete: (videoId: string) => void;
 };
