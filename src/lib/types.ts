@@ -1,7 +1,17 @@
+export type Video = {
+  id: string;
+  title: string;
+  author: string;
+  channelId: string;
+  lengthSeconds: string;
+  publishedAt: string;
+}
+
 export type Timestamp = {
   id: string;
   time: string;
   text: string;
+  video?: Video;
 };
 
 export type SkipSeconds = {
