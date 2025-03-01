@@ -17,9 +17,7 @@ export function App() {
 
   // 動画が変更されたとき拡張機能ストレージから timestamps を読み込む
   useEffect((): void => {
-    console.log('debug:first');
     loadTimestamps(video.videoId).then((data): void => {
-      console.log('debug:data', data);
       setTimestamps(data);
     });
   }, [video.videoId]);

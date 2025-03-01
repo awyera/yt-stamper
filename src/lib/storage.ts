@@ -12,8 +12,7 @@ export async function saveVideoTimestamps(videoId: string, timestamps: Timestamp
 export function loadTimestamps(videoId: string): Promise<Timestamp[]> {
   return new Promise((resolve) => {
     chrome.storage.local.get(`videoTimestamps`, (result) => {
-      console.log('debug:result', result);
-      if (!result.videoTimestamps[videoId]) {
+      if (!result.videoTimestamps?.[videoId]) {
         resolve([]);
         return;
       }
@@ -25,7 +24,7 @@ export function loadTimestamps(videoId: string): Promise<Timestamp[]> {
 export function loadVideoTimestamps(videoId: string): Promise<VideoTimestamps | null> {
   return new Promise((resolve) => {
     chrome.storage.local.get(`videoTimestamps`, (result) => {
-      if (!result.videoTimestamps[videoId]) {
+      if (!result.videoTimestamps?.[videoId]) {
         resolve(null);
         return;
       }
