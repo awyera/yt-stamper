@@ -1,27 +1,26 @@
-import { loadData, saveData } from '../lib/storage';
 import { useEffect, useState } from 'react';
-import type { Timestamp } from '../lib/types';
 import { TrieProvider } from '../context/TrieContext';
+import { loadTimestamps, saveVideoTimpstamps } from '../lib/storage';
+import type { Timestamp } from '../lib/types';
 import { YTStamper } from './components/YTStamper';
-import { useVideoId } from './hooks/useVideoId';
+import { useVideoDetails } from './hooks/useVideoDetails';
 
 export function App() {
-  const videoId = useVideoId();
-
+  const video = useVideoDetails();
   const [timestamps, setTimestamps] = useState<Timestamp[]>([]);
 
   // timestamps が変更されたときに拡張機能ストレージに保存する
   function handleChange(timestamps: Timestamp[]) {
     setTimestamps(timestamps);
-    saveData(videoId, timestamps);
+    saveVideoTimpstamps(video.videoId, timestamps, video);
   }
 
   // 動画が変更されたとき拡張機能ストレージから timestamps を読み込む
   useEffect((): void => {
-    loadData(videoId).then((data): void => {
+    loadTimestamps(video.videoId).then((data): void => {
       setTimestamps(data);
     });
-  }, [videoId]);
+  }, [video.videoId]);
 
   return (
     <TrieProvider>

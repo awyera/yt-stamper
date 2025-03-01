@@ -1,4 +1,4 @@
-export type Video = {
+export type VideoDetails = {
   videoId: string;
   title: string;
   author: string;
@@ -11,8 +11,19 @@ export type Timestamp = {
   id: string;
   time: string;
   text: string;
-  video?: Video;
 };
+
+export type VideoTimpstamps = {
+  list: Timestamp[]
+  videoDetails: VideoDetails
+}
+
+export type StorageData = {
+  skipSeconds: SkipSeconds;
+  videoTimestmaps: {
+    [videoId: string]: VideoTimpstamps
+  };
+}
 
 export type SkipSeconds = {
   longBackward: number;

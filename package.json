@@ -14,11 +14,13 @@
     "clean": "rm -rf ./out",
     "storybook": "storybook dev -p 9009 --no-open",
     "format": "prettier --write .",
-    "lint": "oxlint --fix"
+    "lint": "oxlint --fix",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@webcomponents/custom-elements": "^1.6.0",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
     "lucide-react": "^0.372.0",
     "nanoid": "^5.1.0",
     "react": "^18.3.1",
