@@ -24,14 +24,14 @@ export type YTEvent = CustomEvent<{
 }>
 
 export const getVideoDetails = (e: YTEvent): Video => {
-  const videoDetails = e.detail.response.playerResponse.videoDetails;
+  const { videoId, title, author, channelId, lengthSeconds } = e.detail.response.playerResponse.videoDetails;
   const { liveBroadcastDetails, publishDate } = e.detail.response.microformat.playerMicroformatRenderer;
   return {
-    id: videoDetails.videoId,
-    title: videoDetails.title,
-    author: videoDetails.author,
-    channelId: videoDetails.channelId,
-    lengthSeconds: videoDetails.lengthSeconds,
+    videoId,
+    title,
+    author,
+    channelId,
+    lengthSeconds,
     publishedAt: liveBroadcastDetails ? liveBroadcastDetails.startTimestamp : publishDate
   }
 };
