@@ -1,53 +1,67 @@
 import { Trie } from './trie';
-import type { Timestamp } from './types';
+import type { StorageData, Timestamp, VideoDetails, VideoTimestamps } from './types';
 
-export function saveData(videoId: string, timestamps: Timestamp[]) {
-  const data = { [videoId]: timestamps };
-  chrome.storage.local.set(data);
+export async function saveVideoTimestamps(videoId: string, timestamps: Timestamp[], video: VideoDetails): Promise<void> {
+  const data: StorageData['videoTimestamps'] = { [videoId]: { list: timestamps, videoDetails: video } };
+  const currentData = await loadAllVideoTimestamps();
+  return new Promise(resolve => {
+    chrome.storage.local.set({ videoTimestamps: Object.assign(currentData, data) }, resolve);
+  });
 }
 
-export function loadData(videoId: string): Promise<Timestamp[]> {
+export function loadTimestamps(videoId: string): Promise<Timestamp[]> {
   return new Promise((resolve) => {
-    chrome.storage.local.get(videoId, (result) => {
-      if (result[videoId]) {
-        resolve(result[videoId]);
+    chrome.storage.local.get(`videoTimestamps`, (result) => {
+      if (!result.videoTimestamps?.[videoId]) {
+        resolve([]);
         return;
       }
-      resolve([]);
+      resolve(result.videoTimestamps[videoId].list);
     });
   });
 }
 
-export function loadAllData(): Promise<Record<string, Timestamp[]>> {
+export function loadVideoTimestamps(videoId: string): Promise<VideoTimestamps | null> {
   return new Promise((resolve) => {
-    chrome.storage.local.get(null, (result) => {
-      // skipSeconds と shortcuts は除外
-      const { shortcuts: _shortcuts, skipSeconds: _skipSeconds, ...timestams } = result;
-
-      resolve(timestams);
+    chrome.storage.local.get(`videoTimestamps`, (result) => {
+      if (!result.videoTimestamps?.[videoId]) {
+        resolve(null);
+        return;
+      }
+      resolve(result.videoTimestamps[videoId]);
     });
   });
 }
 
-export function removeData(videoId: string): Promise<void> {
+export function loadAllVideoTimestamps(): Promise<StorageData['videoTimestamps']> {
   return new Promise((resolve) => {
-    chrome.storage.local.remove(videoId, resolve);
+    chrome.storage.local.get('videoTimestamps', (result) => {
+      if (!result.videoTimestamps) {
+        resolve({});
+        return;
+      }
+      resolve(result.videoTimestamps);
+    });
+  });
+}
+
+export async function removeData(videoId: string): Promise<void> {
+  const currentData = await loadAllVideoTimestamps();
+  const newData = { ...currentData };
+  delete newData[videoId];
+  return new Promise((resolve) => {
+    chrome.storage.local.set({ videoTimestamps: newData }, resolve);
   });
 }
 
 // 保存されているタイムスタンプから text のトライ木を作成する
 export async function loadTrieFromLocalStorage(): Promise<Trie> {
   const trie = new Trie();
-  const data = await new Promise<Record<string, Timestamp[]>>((resolve) => {
-    chrome.storage.local.get(null, resolve);
-  });
+  const videoTimestamps = await loadAllVideoTimestamps()
 
-  // shortcuts, skipSeconds は不要
-  const { shortcuts: _shortcuts, skipSeconds: _skipSeconds, ...timestamps } = data;
-
-  for (const id in timestamps) {
-    for (const value of timestamps[id]) {
-      trie.insert(value.text, id);
+  for (const videoId in videoTimestamps) {
+    for (const timestamp of videoTimestamps[videoId].list) {
+      trie.insert(timestamp.text, videoId);
     }
   }
 

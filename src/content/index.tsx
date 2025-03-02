@@ -1,6 +1,7 @@
 import '@webcomponents/custom-elements';
 import { App } from './App';
 import { createRoot } from 'react-dom/client';
+import { getVideoDetails, type YTEvent } from '../lib/youtube';
 
 const ELEMENT_NAME = 'yt-stamper';
 
@@ -55,7 +56,10 @@ document.addEventListener('yt-navigate-start', () => {
 });
 
 // yt-navigate-finish 時に yt-stamper を追加する
-document.addEventListener('yt-navigate-finish', () => {
+document.addEventListener('yt-navigate-finish', (e) => {
+  const videoDetails = getVideoDetails(e as YTEvent);
+  (window as any).__YT_STAMPER_DATA__ = { videoDetails };
+
   const observer = new MutationObserver((_mutations, obs) => {
     const container = document.querySelector('#secondary-inner');
     if (container) {

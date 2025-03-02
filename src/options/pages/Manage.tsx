@@ -1,19 +1,30 @@
 import { type ChangeEvent, useEffect, useState } from 'react';
 import { useTrie } from '../../context/TrieContext';
-import { loadAllData, removeData } from '../../lib/storage';
-import type { Timestamp } from '../../lib/types';
+import { loadAllVideoTimestamps, removeData } from '../../lib/storage';
+import type { StorageData } from '../../lib/types';
 import { ListItem } from '../components/ListItem';
 
 export function Manage() {
   const trie = useTrie();
-  const [allData, setAllData] = useState<Record<string, Timestamp[]>>({});
-  const [data, setData] = useState<Record<string, Timestamp[]>>({});
+  const [allData, setAllData] = useState<StorageData['videoTimestamps']>({});
+  const [data, setData] = useState<StorageData['videoTimestamps']>({});
+
+  const sortedData = Object.values(data)
+    .map((d) => ({ ...d, videoDetails: { ...d.videoDetails, publishedAt: new Date(d.videoDetails.publishedAt) } }))
+    .sort((a, b) => {
+      const pA = a.videoDetails.publishedAt;
+      const pB = b.videoDetails.publishedAt;
+      if (pA === pB) {
+        return 0;
+      }
+      return pA > pB ? -1 : 1;
+    });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value;
     if (trie && value) {
       const result = trie.search(value);
-      const filtered = result.ids.reduce<Record<string, Timestamp[]>>((filtered, id) => {
+      const filtered = result.videoIds.reduce<StorageData['videoTimestamps']>((filtered, id) => {
         filtered[id] = allData[id];
         return filtered;
       }, {});
@@ -23,10 +34,10 @@ export function Manage() {
     }
   };
 
-  const handleDelete = (videoId: string) => async () => {
+  const handleDelete = async (videoId: string) => {
     if (confirm('削除しますか？')) {
       await removeData(videoId);
-      loadAllData().then((data) => {
+      loadAllVideoTimestamps().then((data) => {
         setAllData(data);
         setData(data);
       });
@@ -34,7 +45,7 @@ export function Manage() {
   };
 
   useEffect(() => {
-    loadAllData().then((data) => {
+    loadAllVideoTimestamps().then((data) => {
       setAllData(data);
       setData(data);
     });
@@ -48,13 +59,13 @@ export function Manage() {
     <section className="container mx-auto">
       <input className="border" type="text" onChange={handleChange} />
 
-      {Object.keys(data).map((key) => (
+      {sortedData.map((data) => (
         <ListItem
           className="mt-4 border-t pt-4 first:mt-0 first:border-none first:p-0"
-          videoId={key}
-          items={allData[key]}
-          onDelete={handleDelete(key)}
-          key={key}
+          videoId={data.videoDetails.videoId}
+          videoTimestamps={data}
+          onDelete={handleDelete}
+          key={data.videoDetails.videoId}
         />
       ))}
     </section>

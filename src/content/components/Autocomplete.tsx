@@ -59,6 +59,13 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
     }
   }
 
+  function handleBlur() {
+    setTimeout(() => {
+      setSuggestions([]);
+      setCurrentIndex(-1);
+    }, 100);
+  }
+
   const root = thisRef.current?.getRootNode() as ShadowRoot | null;
   useEffect(() => {
     if (!root || !(root instanceof ShadowRoot) || !suggestionsRef.current || !suggestions.length) return;
@@ -73,11 +80,6 @@ export function Autocomplete({ className, value, inputProps, onChange }: Props) 
     suggestionsRef.current.style.left = `${left}px`;
     suggestionsRef.current.style.width = `${width}px`;
   }, [root, suggestions.length]);
-
-  function handleBlur() {
-    setSuggestions([]);
-    setCurrentIndex(-1);
-  }
 
   return (
     <div className={twMerge('w-full', className)} ref={thisRef}>

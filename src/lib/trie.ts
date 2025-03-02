@@ -2,20 +2,20 @@ type SerializedTrieNode = {
   children: { [key: string]: SerializedTrieNode };
   isEndOfWord: boolean;
   originalWords?: string[];
-  ids?: string[];
+  videoIds?: string[];
 };
 
 class TrieNode {
   children: Map<string, TrieNode>;
   isEndOfWord: boolean;
   originalWords: Set<string>;
-  ids: Set<string>;
+  videoIds: Set<string>;
 
   constructor() {
     this.children = new Map<string, TrieNode>();
     this.isEndOfWord = false;
     this.originalWords = new Set<string>();
-    this.ids = new Set<string>();
+    this.videoIds = new Set<string>();
   }
 
   serialize(): SerializedTrieNode {
@@ -27,7 +27,7 @@ class TrieNode {
       children: serializedChildren,
       isEndOfWord: this.isEndOfWord,
       originalWords: Array.from(this.originalWords),
-      ids: Array.from(this.ids),
+      videoIds: Array.from(this.videoIds),
     };
   }
 
@@ -35,7 +35,7 @@ class TrieNode {
     const node = new TrieNode();
     node.isEndOfWord = data.isEndOfWord;
     node.originalWords = new Set(data.originalWords);
-    node.ids = new Set(data.ids);
+    node.videoIds = new Set(data.videoIds);
     for (const key in data.children) {
       node.children.set(key, TrieNode.deserialize(data.children[key]));
     }
@@ -50,7 +50,7 @@ export class Trie {
     this.root = new TrieNode();
   }
 
-  insert(word: string, id: string): void {
+  insert(word: string, videoId: string): void {
     let node = this.root;
     for (const char of word.toLowerCase()) {
       if (!node.children.has(char)) {
@@ -58,22 +58,22 @@ export class Trie {
       }
       // biome-ignore lint/style/noNonNullAssertion: node が存在することは直前の処理で自明
       node = node.children.get(char)!;
-      node.ids.add(id);
+      node.videoIds.add(videoId);
     }
     node.isEndOfWord = true;
     node.originalWords.add(word);
   }
 
-  search(prefix: string): { words: string[]; ids: string[] } {
+  search(prefix: string): { words: string[]; videoIds: string[] } {
     let node = this.root;
     for (const char of prefix.toLowerCase()) {
       const nextNode = node.children.get(char);
       if (!nextNode) {
-        return { words: [], ids: [] };
+        return { words: [], videoIds: [] };
       }
       node = nextNode;
     }
-    return { words: this._collectAllWords(node), ids: Array.from(node.ids) };
+    return { words: this._collectAllWords(node), videoIds: Array.from(node.videoIds) };
   }
 
   private _collectAllWords(node: TrieNode): string[] {
