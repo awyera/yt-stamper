@@ -1,38 +1,22 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { formatTime, parseTime } from '../lib/time';
-import { useState, useEffect } from 'react';
 import type { ChangeEvent, KeyboardEvent } from 'react';
 import type { Timestamp } from '../../lib/types';
+import { formatTime, parseTime } from '../lib/time';
 
 type Props = {
   time: Timestamp['time'];
+  undo: () => void;
+  redo: () => void;
   onChange: (time: string, isSeek?: boolean) => void;
 };
 
-export function TimeInput({ time, onChange }: Props) {
-  const [history, setHistory] = useState<string[]>([]);
-  const [currentIndex, setCurrentIndex] = useState<number>(-1);
-
-  function handleUndo() {
-    if (currentIndex > 0) {
-      setCurrentIndex((prevIndex) => prevIndex - 1);
-      onChange(history[currentIndex - 1]);
-    }
-  }
-
-  function handleRedo() {
-    if (currentIndex < history.length - 1) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      onChange(history[currentIndex + 1]);
-    }
-  }
-
+export function TimeInput({ time, undo, redo, onChange }: Props) {
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.ctrlKey && e.key === 'z') {
-      handleUndo();
+      undo();
     }
     if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
-      handleRedo();
+      redo();
     }
   }
 
@@ -53,11 +37,6 @@ export function TimeInput({ time, onChange }: Props) {
 
     onChange(formatTime(seconds), true);
   }
-
-  useEffect(() => {
-    setHistory((prevHistory) => [...prevHistory, time]);
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-  }, [time]);
 
   return (
     <div className="inline-flex items-stretch justify-start overflow-clip rounded-sm border border-gray-500">
