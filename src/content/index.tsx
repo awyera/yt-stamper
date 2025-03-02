@@ -8,7 +8,7 @@ const ELEMENT_NAME = 'yt-stamper';
 document.addEventListener(
   'keydown',
   (e) => {
-    if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape', 'Tab'].includes(e.key)) {
+    if (['ArrowDown', 'ArrowUp', 'Enter', 'Escape', 'Tab', 'Control', 'Shift', 'z', 'Z'].includes(e.key)) {
       return;
     }
 

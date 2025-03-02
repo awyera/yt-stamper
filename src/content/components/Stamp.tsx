@@ -1,11 +1,12 @@
 import { Play, Timer, Trash } from 'lucide-react';
+import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+import { Button } from '../../components/Button';
+import type { Timestamp } from '../../lib/types';
 import { formatTime, parseTime } from '../lib/time';
 import { Autocomplete } from './Autocomplete';
-import { Button } from '../../components/Button';
 import { ButtonGroup } from './ButtonGroup';
 import { TimeInput } from './TimeInput';
-import type { Timestamp } from '../../lib/types';
-import { twMerge } from 'tailwind-merge';
 
 type Props = {
   className?: string;
@@ -18,11 +19,35 @@ type Props = {
 };
 
 export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChange, onDelete }: Props) {
+  const [history, setHistory] = useState<string[]>([timestamp.time]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+
+  function undoTime() {
+    if (currentIndex > 0) {
+      setCurrentIndex((prevIndex) => prevIndex - 1);
+      onChange({ ...timestamp, time: history[currentIndex - 1] });
+    }
+  }
+
+  function redoTime() {
+    if (currentIndex < history.length - 1) {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+      onChange({ ...timestamp, time: history[currentIndex + 1] });
+    }
+  }
+
   function handleTimeChange(time: string, isSeek = false) {
-    if (timestamp.time !== time && isSeek) {
+    if (timestamp.time === time) {
+      return;
+    }
+
+    if (isSeek) {
       // 時刻が変更されていたときのみ動画を移動
       video.currentTime = parseTime(time);
     }
+
+    setHistory((prevHistory) => [...prevHistory.slice(0, currentIndex + 1), time]);
+    setCurrentIndex((prevIndex) => prevIndex + 1);
     onChange({ ...timestamp, time });
   }
 
@@ -35,7 +60,14 @@ export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChang
   }
 
   function handleTimestamp() {
-    onChange({ ...timestamp, time: formatTime(video.currentTime) });
+    const time = formatTime(video.currentTime);
+    if (timestamp.time === time) {
+      return;
+    }
+
+    setHistory((prevHistory) => [...prevHistory.slice(0, currentIndex + 1), time]);
+    setCurrentIndex((prevIndex) => prevIndex + 1);
+    onChange({ ...timestamp, time });
   }
 
   function handleDelete() {
@@ -44,7 +76,7 @@ export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChang
 
   return (
     <div className={twMerge('flex items-center gap-1', className)}>
-      <TimeInput time={timestamp.time} onChange={handleTimeChange} />
+      <TimeInput time={timestamp.time} undo={undoTime} redo={redoTime} onChange={handleTimeChange} />
 
       <Autocomplete className="grow" value={timestamp.text} onChange={handleTextChange} />
 
