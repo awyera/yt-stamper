@@ -25,6 +25,7 @@ export const Primary: Story = {
         isDeleteMode={false}
         seek={() => {}}
         onDelete={() => {}}
+        onPaste={() => {}}
       />
     );
   },
@@ -43,6 +44,7 @@ export const Empty: Story = {
         }}
         seek={() => {}}
         onDelete={() => {}}
+        onPaste={() => {}}
       />
     );
   },

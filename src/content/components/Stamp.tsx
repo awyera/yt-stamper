@@ -1,5 +1,5 @@
 import { Play, Timer, Trash } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type ClipboardEvent } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Button } from '../../components/Button';
 import type { Timestamp } from '../../lib/types';
@@ -16,9 +16,10 @@ type Props = {
   seek: (seconds: number) => void;
   onChange: (timestamp: Timestamp) => void;
   onDelete: (timestamp: Timestamp) => void;
+  onPaste: (e: ClipboardEvent<HTMLInputElement>) => void;
 };
 
-export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChange, onDelete }: Props) {
+export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChange, onDelete, onPaste }: Props) {
   const [history, setHistory] = useState<string[]>([timestamp.time]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -76,7 +77,13 @@ export function Stamp({ className, video, timestamp, isDeleteMode, seek, onChang
 
   return (
     <div className={twMerge('flex items-center gap-1', className)}>
-      <TimeInput time={timestamp.time} undo={undoTime} redo={redoTime} onChange={handleTimeChange} />
+      <TimeInput
+        time={timestamp.time}
+        undo={undoTime}
+        redo={redoTime}
+        onChange={handleTimeChange}
+        onPaste={onPaste}
+      />
 
       <Autocomplete className="grow" value={timestamp.text} onChange={handleTextChange} />
 

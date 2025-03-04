@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import type { ChangeEvent, KeyboardEvent } from 'react';
+import type { ChangeEvent, ClipboardEvent, KeyboardEvent } from 'react';
 import type { Timestamp } from '../../lib/types';
 import { formatTime, parseTime } from '../lib/time';
 
@@ -8,9 +8,10 @@ type Props = {
   undo: () => void;
   redo: () => void;
   onChange: (time: string, isSeek?: boolean) => void;
+  onPaste: (e: ClipboardEvent<HTMLInputElement>) => void;
 };
 
-export function TimeInput({ time, undo, redo, onChange }: Props) {
+export function TimeInput({ time, undo, redo, onChange, onPaste }: Props) {
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.ctrlKey && e.key === 'z') {
       undo();
@@ -47,6 +48,7 @@ export function TimeInput({ time, undo, redo, onChange }: Props) {
         onKeyDown={handleKeyDown}
         onChange={handleChange}
         onBlur={handleBlur}
+        onPaste={onPaste}
         placeholder="00:00:00"
       />
 
