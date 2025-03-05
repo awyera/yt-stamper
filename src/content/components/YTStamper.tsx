@@ -98,11 +98,17 @@ export function YTStamper({ timestamps, onChange }: Props) {
       .map((line) => line.trim())
       .filter(Boolean);
 
-    if (lines.every((line) => timestampRegex.test(line))) {
+    if (!lines.length) {
+      return;
+    }
+
+    const validLines = lines.filter((line) => timestampRegex.test(line));
+
+    if (validLines.length > 0) {
       e.preventDefault();
 
       // timestamp に変換
-      const added = lines
+      const added = validLines
         .map((line) => {
           const match = line.match(timestampRegex);
           if (!match) {
@@ -113,11 +119,8 @@ export function YTStamper({ timestamps, onChange }: Props) {
         .filter((x): x is Timestamp => Boolean(x));
 
       // 既存 timestamps がない場合は置き換える
-      if (
-        timestamps.length === 1 &&
-        (timestamps[0].time === '' || timestamps[0].time === '00:00:00') &&
-        timestamps[0].text === ''
-      ) {
+      const isEmpty = timestamps.every((t) => (t.time === '' || t.time === '00:00:00') && t.text === '');
+      if (isEmpty) {
         onChange(added);
         return;
       }
