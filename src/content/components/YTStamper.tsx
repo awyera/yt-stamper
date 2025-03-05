@@ -1,5 +1,5 @@
 import { formatTime, parseTime } from '../lib/time';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ClipboardEvent } from 'react';
 import { Header } from './Header';
 import { Stamp } from './Stamp';
 import type { Timestamp } from '../../lib/types';
@@ -11,6 +11,8 @@ type Props = {
   timestamps: Timestamp[];
   onChange: (timestamps: Timestamp[]) => void;
 };
+
+const timestampRegex = /^((?:\d+:)?\d{1,2}:\d{1,2})(?:\s+(.+))?$/;
 
 export function YTStamper({ timestamps, onChange }: Props) {
   useShortcuts({ toggleOpen, addTimestamp, copyToClipboard, skip });
@@ -88,6 +90,46 @@ export function YTStamper({ timestamps, onChange }: Props) {
     onChange(timestamps.filter((t) => t.id !== timestamp.id));
   }
 
+  // ペースト時の処理
+  function handlePaste(e: ClipboardEvent<HTMLInputElement>) {
+    const lines = e.clipboardData
+      .getData('text')
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    if (!lines.length) {
+      return;
+    }
+
+    const validLines = lines.filter((line) => timestampRegex.test(line));
+
+    if (validLines.length > 0) {
+      e.preventDefault();
+
+      // timestamp に変換
+      const added = validLines
+        .map((line) => {
+          const match = line.match(timestampRegex);
+          if (!match) {
+            return null;
+          }
+          return { id: nanoid(), time: formatTime(parseTime(match[1])), text: match[2] || '' };
+        })
+        .filter((x): x is Timestamp => Boolean(x));
+
+      // 既存 timestamps がない場合は置き換える
+      const isEmpty = timestamps.every((t) => (t.time === '' || t.time === '00:00:00') && t.text === '');
+      if (isEmpty) {
+        onChange(added);
+        return;
+      }
+
+      // それ以外は追加する
+      onChange(timestamps.concat(added));
+    }
+  }
+
   // タイムスタンプが追加された際に最下部へスクロールする
   useEffect(() => {
     if (shouldScrollToButton && listRef.current) {
@@ -151,6 +193,7 @@ export function YTStamper({ timestamps, onChange }: Props) {
                 onChange={changeTimestamp}
                 seek={seek}
                 onDelete={removeTimestamp}
+                onPaste={handlePaste}
               />
             ))
           : null}
