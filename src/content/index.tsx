@@ -58,6 +58,9 @@ document.addEventListener('yt-navigate-start', () => {
 // yt-navigate-finish 時に yt-stamper を追加する
 document.addEventListener('yt-navigate-finish', (e) => {
   const videoDetails = getVideoDetails(e as YTEvent);
+  if (!videoDetails) {
+    return;
+  }
   (window as any).__YT_STAMPER_DATA__ = { videoDetails };
 
   const observer = new MutationObserver((_mutations, obs) => {

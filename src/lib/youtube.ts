@@ -2,7 +2,7 @@ import type { VideoDetails } from "./types";
 
 export type YTEvent = CustomEvent<{
   response: {
-    playerResponse: {
+    playerResponse?: {
       videoDetails: {
         videoId: string;
         title: string;
@@ -12,9 +12,9 @@ export type YTEvent = CustomEvent<{
       }
       microformat: {
         playerMicroformatRenderer: {
-          liveBroadcastDetails: {
+          liveBroadcastDetails?: {
             startTimestamp: string;
-            endTimestamp: string;
+            endTimestamp?: string;
           };
           publishDate: string;
         }
@@ -23,7 +23,10 @@ export type YTEvent = CustomEvent<{
   }
 }>
 
-export const getVideoDetails = (e: YTEvent): VideoDetails => {
+export const getVideoDetails = (e: YTEvent): VideoDetails | undefined => {
+  if (!e.detail.response.playerResponse) {
+    return;
+  }
   const { videoId, title, author, channelId, lengthSeconds } = e.detail.response.playerResponse.videoDetails;
   const { liveBroadcastDetails, publishDate } = e.detail.response.playerResponse.microformat.playerMicroformatRenderer;
   return {
